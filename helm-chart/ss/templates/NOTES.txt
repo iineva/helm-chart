@@ -1,0 +1,4 @@
+
+访问端口：{{ default 9527 .Values.port }}
+登录密码：{{ default "steven" .Values.password }}
+加密方式：{{ default "chacha20-ietf-poly1305" .Values.method }}

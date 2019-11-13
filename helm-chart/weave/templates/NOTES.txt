@@ -1,0 +1,7 @@
+需要自行运行命令安装:
+  kubectl apply -f "https://cloud.weave.works/k8s/scope.yaml?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+网关已添加:
+{{ range .Values.hosts -}}
+https://{{ . }}
+{{- end }}

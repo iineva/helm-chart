@@ -1,0 +1,24 @@
+{{- range .Values.nfs.paths }}
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "pvc.fullname" $ }}-{{ .name }}
+spec:
+  capacity:
+    storage: {{ .storage }}
+  volumeMode: Filesystem
+  accessModes:
+    {{- toYaml $.Values.accessModes | nindent 4 }}
+  persistentVolumeReclaimPolicy: {{ $.Values.persistentVolumeReclaimPolicy }}
+  storageClassName: {{ template "pvc.fullname" $ }}-{{ .name }}
+  mountOptions:
+  {{- if $.Values.nfs.mountOptions }}
+    {{- toYaml $.Values.nfs.mountOptions | nindent 4 }}
+  {{- else }}
+    - vers=4,minorversion=0,noresvport
+  {{- end }}
+  nfs:
+    path: {{ .path }}
+    server: {{ $.Values.nfs.server }}
+{{- end }}

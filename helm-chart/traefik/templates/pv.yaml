@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  namespace: {{ template "traefik.name" . }}
+spec:
+  capacity:
+    storage: 100Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: traefik
+  mountOptions:
+  {{- if .Values.nfsMountOptions }}
+    {{- toYaml .Values.nfsMountOptions | nindent 4 }}
+  {{- else }}
+    - vers=4,minorversion=0,noresvport
+  {{- end }}
+  nfs:
+    path: {{ .Values.nfsPath }}
+    server: {{ .Values.nfsServer }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  namespace: {{ template "traefik.name" . }}
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: {{ template "traefik.fullname" . }}

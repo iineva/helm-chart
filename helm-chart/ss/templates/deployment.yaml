@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "ss"
+  namespace: "ss"
+  labels:
+    {{- include "ss.labels" . | nindent 4 }}
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "ss"
+  template:
+    metadata:
+      labels:
+        app: "ss"
+    spec:
+    {{- if .Values.nodeName }}
+      nodeName: {{ .Values.nodeName }}
+    {{- end }}
+      containers:
+        - name: "ss"
+          image: "shadowsocks/shadowsocks-libev"
+          ports:
+            - name: tcp
+              containerPort: {{ .Values.port }}
+            {{- if .Values.enableUDP }}
+            - name: udp
+              containerPort: {{ .Values.port }}
+            {{- end }}
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              ss-server -b 0.0.0.0 -p {{ default 9527 .Values.port }} \
+                -k {{ default "steven" .Values.password }} \
+                -m {{ default "chacha20-ietf-poly1305" .Values.method }} \
+                {{- if .Values.enableMPTCP }}
+                --mptcp \
+                {{- end }}
+                {{- if .Values.enableUDP }}
+                -u \
+                {{- end }}
+                -v

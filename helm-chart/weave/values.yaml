@@ -1,0 +1,6 @@
+# 外部访问域名
+host: example.local
+
+# 生成账号的方法，一行一个账号
+# htpasswd -nb user password
+users: []

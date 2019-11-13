@@ -1,0 +1,12 @@
+persistentVolumeReclaimPolicy: Retain
+accessModes:
+  - ReadWriteOnce
+
+nfs:
+  server: example.local
+  mountOptions:
+    - vers=4,timeo=10,intr,rw
+  paths:
+    - name: example
+      path: /to/data/path
+      storage: 100Mi

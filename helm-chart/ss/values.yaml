@@ -1,0 +1,17 @@
+nodeName:
+
+replicaCount: 2
+
+# 端口，默认 9527
+port: 9527
+
+# 是否开启UDP
+enableUDP: true
+# 是否开启MPTCP
+enableMPTCP: true
+
+# 密码，默认 steven
+password: ""
+
+# 加密算法，默认 chacha20-ietf-poly1305
+method: ""

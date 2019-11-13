@@ -1,0 +1,11 @@
+{{- range $name, $configs := .Values.configMaps }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "api-server.name" $ }}-{{ $name }}
+data:
+  {{- range $key := (keys $configs) | sortAlpha }}
+  {{ $key }}: "{{ get $configs $key }}"
+  {{- end }}
+{{- end }}

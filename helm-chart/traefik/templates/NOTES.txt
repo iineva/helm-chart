@@ -1,0 +1,12 @@
+Traefik 服务已启动
+
+
+Dashboard 生成账号的方法，一行一个账号:
+  htpasswd -nb user password
+
+{{ if not .Values.users -}}
+> 注意！未设置 .Values.users 自动生成 Dashboard 默认用户
+  admin steven
+{{- else -}}
+Dashboard 登录用户为 .Values.users 指定的用户
+{{- end }}

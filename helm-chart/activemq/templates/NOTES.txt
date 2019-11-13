@@ -1,0 +1,4 @@
+
+activemq已部署:
+版本信息: {{ .Values.image.repository }}:{{ .Chart.AppVersion }}
+集群地址: {{ include "activemq.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}

@@ -1,0 +1,50 @@
+{{- if .Values.dashboard }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "traefik.fullname" . }}-dashboard
+  namespace: {{ template "traefik.name" . }}
+  labels:
+    {{- include "traefik.labels" . | nindent 4 }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "traefik.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+  ports:
+    - name: dashboard
+      port: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "traefik.fullname" . }}-dashboard
+  namespace: {{ template "traefik.name" . }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    ingress.kubernetes.io/auth-type: basic
+    ingress.kubernetes.io/auth-secret: {{ template "traefik.fullname" . }}
+spec:
+  rules:
+    - host: "{{ .Values.dashboardHost }}"
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ template "traefik.fullname" . }}-dashboard
+              servicePort: dashboard
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  namespace: {{ template "traefik.name" . }}
+data:
+  # 生成账号的方法，一行一个账号
+  # htpasswd -nb admin steven
+  users: |
+  {{- if .Values.users }}
+    {{- join "\n" .Values.users | b64enc | nindent 4 }}
+  {{- else }}
+    YWRtaW46JGFwcjEkVWE1R2J4b1IkSUhrcFpENmxBRlhKZHJ2M3JHeTdmMAoK
+  {{- end }}
+{{- end }}

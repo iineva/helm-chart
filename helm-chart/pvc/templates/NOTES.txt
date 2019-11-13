@@ -1,0 +1,9 @@
+##########################
+
+PVC已创建:
+
+{{- range .Values.nfs.paths }}
+    {{ template "pvc.fullname" $ }}-{{ .name }}
+{{- end }}
+
+##########################

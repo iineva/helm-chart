@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "gitlab.fullname" . }}
+spec:
+  accessModes:
+    {{- toYaml .Values.persistent.accessModes | nindent 4 }}
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .Values.persistent.size }}
+  storageClassName: {{ .Values.persistent.storageClassName }}

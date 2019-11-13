@@ -1,0 +1,68 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  namespace: {{ template "traefik.name" . }}
+  labels:
+{{ include "traefik.labels" . | indent 4 }}
+  annotations:
+    reloader.stakater.com/auto: "true"
+spec:
+  replicas: {{ default 1 .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "traefik.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "traefik.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ include "traefik.serviceAccountName" . }}
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: traefik
+        - name: config
+          configMap:
+            name: traefik
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "traefik:v{{ .Chart.AppVersion }}-alpine"
+          imagePullPolicy: IfNotPresent
+          resources:
+            {{ toYaml .Values.resources | indent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: "/data"
+            - name: config
+              mountPath: /etc/traefik/
+              readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: dashboard
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 20
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: dashboard
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+            - name: dashboard
+              containerPort: 8080
+          env:
+            - name: DNSPOD_API_KEY
+              value: {{ .Values.dnsPodApiKey }}

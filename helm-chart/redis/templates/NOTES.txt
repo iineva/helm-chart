@@ -1,0 +1,4 @@
+
+Redis已部署:
+版本信息: {{ .Values.image.repository }}:{{ .Chart.AppVersion }}
+集群地址: {{ include "redis.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.service.port }}

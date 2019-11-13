@@ -1,0 +1,15 @@
+{{- range .Values.nfs.paths }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ template "pvc.fullname" $ }}-{{ .name }}
+spec:
+  accessModes:
+    {{- toYaml $.Values.accessModes | nindent 4 }}
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: {{ .storage }}
+  storageClassName: {{ template "pvc.fullname" $ }}-{{ .name }}
+{{- end }}

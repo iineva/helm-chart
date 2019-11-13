@@ -1,0 +1,22 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "ss"
+  namespace: "ss"
+spec:
+  type: NodePort
+  selector:
+    app: "ss"
+  ports:
+    - name: tcp
+      port: {{ .Values.port }}
+      nodePort: {{ .Values.port }}
+      targetPort: tcp
+      protocol: TCP
+    {{- if .Values.enableUDP }}
+    - name: udp
+      port: {{ .Values.port }}
+      nodePort: {{ .Values.port }}
+      targetPort: udp
+      protocol: UDP
+    {{- end }}

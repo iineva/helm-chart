@@ -1,0 +1,51 @@
+
+# 实例数量
+replicaCount: 2
+
+# Dashboard域名
+dashboardHost: example.local
+
+# 提前获取域名证书
+dnsChallengeDomains: []
+
+# DNSPod访问key
+dnsPodApiKey: ""
+
+# nfs配置
+nfsPath: "/kubernetes/traefik"
+nfsServer: example.local
+nfsMountOptions: []
+
+# 生成账号的方法，一行一个账号
+# htpasswd -nb user password
+users: []
+
+# 资源限制
+resources: {}
+  # requests:
+  #   memory: "1G"
+  #   cpu: "1000m"
+  #   # memory: "2G"
+  #   # cpu: "2000m"
+  # limits:
+  #   memory: "4Gi"
+  #   cpu: "4000m"
+
+# 是否开启debug模式
+debug: false
+# 日志等级
+logLevel: "info"
+
+# 设置超时的时间（以秒为单位）
+# 在热更新期间给还在活动中的请求来完成当前任务的超时时间
+graceTimeOut: 10
+
+# 允许backend通过未验证的https证书
+insecureSkipVerify: true
+
+# 是否开启dashboard
+dashboard: true
+
+# 用于注册的邮箱地址
+acmeEmail: "s@example.local"
+

@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "traefik.fullname" . }}
+  namespace: {{ template "traefik.name" . }}
+  labels:
+    {{- include "traefik.labels" . | nindent 4 }}
+data:
+  traefik.toml: |
+    ################################################################
+    # 全局配置文件
+    ################################################################
+
+    # 开启调试模式
+    {{ if .Values.debug -}}
+    debug = true
+    {{- else -}}
+    debug = false
+    {{- end }}
+    
+    # 日志等级
+    logLevel = "{{ default "info" .Values.logLevel }}"
+
+    # 设置超时的时间（以秒为单位）
+    # 在热更新期间给还在活动中的请求来完成当前任务的超时时间
+    graceTimeOut = {{ .Values.graceTimeOut }}
+
+    # 定期检查是否有新版本产生
+    checkNewVersion = false
+
+    # 后端节流持续时间：在应用新配置之前，提供者的2个事件之间的最短持续时间（以秒为单位）
+    # 如果在短时间内发送多个事件，它可以避免不必要的重新加载。
+    # 默认: "2"
+    # ProvidersThrottleDuration = "5"
+
+    # 为每个host控制最大空闲连接（keep-alive）。如果设置为0，那么将会使用
+    # Go语言基础库net/http中的DefaultMaxIdleConnsPerHost。
+    # 如果造成 'too many open files' 错误，你也可以增加这个值或改变 `ulimit`。
+    # 默认: 200
+    # MaxIdleConnsPerHost = 200
+
+    # 被前端所使用的入口点未指定任何入口点。
+    # 任何前端可以指定它自己的入口点。
+    # 默认: ["http"]
+    defaultEntryPoints = ["http", "https"]
+
+    # 允许backend通过未验证的https证书
+    {{ if .Values.insecureSkipVerify -}}
+    insecureSkipVerify = true
+    {{- else -}}
+    insecureSkipVerify = false
+    {{- end }}
+
+    # 声明当前环境在kubernetes内
+    [kubernetes]
+
+    # 开启WebUI
+    [api]
+    # entryPoint = "traefik"
+    {{ if .Values.dashboard -}}
+    dashboard = true
+    {{- else -}}
+    dashboard = false
+    {{- end }}
+
+    # 开启统计
+    [metrics]
+      [metrics.prometheus]
+      # Buckets for latency metrics
+      # Default: [0.1, 0.3, 1.2, 5]
+      buckets = [0.1,0.3,1.2,5.0]
+
+    # 入口点配置
+    [entryPoints]
+      [entryPoints.http]
+      address = ":80"
+      compress = true
+        [entryPoints.http.redirect]
+        entryPoint = "https"
+      [entryPoints.https]
+      address = ":443"
+      compress = true
+        [entryPoints.https.tls]
+
+    # 启用 ACME (Let's Encrypt): 自动 SSL
+    [acme]
+    # 用于注册的邮箱地址
+    email = "{{ .Values.acmeEmail }}"
+    # 证书存储使用的文件或键。
+    storage = "/data/acme.json" # or "traefik/acme/account" if using KV store
+    # 代理acme验证证书challenge/apply的入口点。
+    # 警告, 必需指向到一个443端口作为入口点
+    entryPoint = "https"
+    # 如果设置为true，将显示由acme客户端代码库中产生的调试日志信息
+    acmeLogging = true
+    # 启用根据前端Host规则来生成证书。这将会为每个具有Host规则的前端生成一个Let's Encrypt的证书。
+    # 举个例子，一个具有规则的Host:test1.traefik.cn,test2.traefik.cn 将会为主域名test1.traefik.cn与SAN(替代域名) test2.traefik.cn生成一个证书。
+    onHostRule = true
+    # 所使用的CA服务器
+    #caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+    # [acme.httpChallenge]
+      # entryPoint = "http"
+    [acme.dnsChallenge]
+      provider = "dnspod"
+      delayBeforeCheck = 10
+    {{- range .Values.dnsChallengeDomains }}
+    [[acme.domains]]
+    main = "{{ . }}"
+    {{- end }}

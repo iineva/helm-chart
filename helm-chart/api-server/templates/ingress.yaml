@@ -1,0 +1,34 @@
+{{- range $subIndex, $submodules := .Values.submodules }}
+{{ if $submodules.ingress }}
+{{- range $index, $ingress := $submodules.ingress }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "api-server.name" $ }}-{{ $submodules.name }}-{{ default $index $ingress.name }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    {{/* 开启HSTS严格传输安全 */}}
+    ingress.kubernetes.io/ssl-redirect: "true"
+    ingress.kubernetes.io/force-hsts: "true"
+    ingress.kubernetes.io/hsts-max-age: "31536000"
+    traefik.frontend.priority: "{{ default 10 $ingress.priority }}"
+    traefik.frontend.rule.type: "{{ default "PathPrefix" $ingress.ruleType }}"
+    {{- if $ingress.addPrefix }}
+    traefik.ingress.kubernetes.io/request-modifier: "AddPrefix: {{ $ingress.addPrefix }}"
+    {{- end }}
+    {{- if $ingress.annotations }}
+      {{- toYaml $ingress.annotations | nindent 4 }}
+    {{- end }}
+spec:
+  rules:
+    - host: {{ default $.Values.host $ingress.host }}
+      http:
+        paths:
+          - path: {{ $ingress.path }}
+            backend:
+              serviceName: {{ include "api-server.name" $ }}-{{ $submodules.name }}
+              servicePort: http
+{{- end }}
+{{- end }}
+{{- end }}

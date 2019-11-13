@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "registry-ui.fullname" . }}
+  labels:
+    {{- include "registry-ui.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "registry-ui.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "registry-ui.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "registry-ui.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: REGISTRY_SSL
+              value: "{{ .Values.env.REGISTRY_SSL }}"
+            - name: REGISTRY_HOST
+              value: "{{ .Values.env.REGISTRY_HOST }}"
+            - name: REGISTRY_DOMAIN
+              value: "{{ .Values.env.REGISTRY_DOMAIN }}"
+            - name: REGISTRY_STORAGE_DELETE_ENABLED
+              value: "{{ .Values.env.REGISTRY_STORAGE_DELETE_ENABLED }}"
+            - name: REGISTRY_USER
+              value: "{{ .Values.env.REGISTRY_USER }}"
+            - name: REGISTRY_PASS
+              value: "{{ .Values.env.REGISTRY_PASS }}"
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

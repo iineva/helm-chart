@@ -1,0 +1,36 @@
+default:
+  repository: example.local
+  imagePullSecrets:
+  resources: {}
+  replicas: 2
+  tag: "latest"
+
+host: example.local
+namespace: api-server
+
+submodules:
+  - name: api
+    # 关闭健康检测
+    disableHealthCheck: false
+    # 健康检测路径
+    healthCheckPath: /healthz
+    # 健康启动检测延迟
+    initialDelaySeconds: 10
+    containerPort: 80
+    ingress:
+        # 名字可选，出现在ingress名字后缀，默认用index做后缀
+      - name: api
+        # 捕获路径
+        path: /
+        # 权重
+        priority: 10
+        # 规则类型
+        ruleType: PathPrefix
+        # 访问后端服务时，添加路径前缀
+        addPrefix: /home
+
+env:
+  TZ: Asia/Shanghai
+  PORT: "8000"
+  APP_ENV: "prod"
+  GIN_MODE: "release"
