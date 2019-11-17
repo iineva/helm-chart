@@ -8,6 +8,8 @@ metadata:
     reloader.stakater.com/auto: "true"
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "v2ray.selectorLabels" . | nindent 6 }}
