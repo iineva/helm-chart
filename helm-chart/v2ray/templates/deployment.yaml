@@ -57,6 +57,11 @@ spec:
               mountPath: /etc/v2ray/config.json
               subPath: config.json
               readOnly: true
+          {{- if .Values.timezone }}
+          env:
+            - name: TZ
+              value: {{ .Values.timezone }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
