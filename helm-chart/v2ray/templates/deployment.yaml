@@ -42,6 +42,11 @@ spec:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: {{ .Values.service.protocol }}
+            {{- range .Values.nodePorts }}
+            - name: {{ .name }}
+              containerPort: {{ .port }}
+              protocol: {{ default "TCP" .protocol }}
+            {{- end }}
           {{- if eq .Values.service.protocol "TCP" }}
           livenessProbe:
             tcpSocket:

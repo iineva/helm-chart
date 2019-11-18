@@ -32,8 +32,8 @@ securityContext: {}
 
 service:
   type: NodePort
-  protocol: UDP
-  port: 9528
+  protocol: TCP
+  port: 80
 
 ingress:
   enabled: false
