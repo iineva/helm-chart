@@ -88,11 +88,13 @@ host: example.local
 external_url: https://example.local
 
 # github登录配置
-gitlab_rails:
+github:
+  enabled: false
   app_id: ""
   app_secret: ""
 
 email:
+  enabled: false
   gitlab_email_from: gitlab@example.local
   smtp_address: smtp.example.local
   smtp_port: 465

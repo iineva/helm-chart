@@ -5,9 +5,9 @@ metadata:
 data:
     # 确保log时区正确显示
     TZ: Asia/Shanghai
-    HOSTNAME: {{ .Values.host }}
+    #GITLAB_HOST: {{ .Values.host }}
     # 配置Gitlab
-    GITLAB_OMNIBUS_CONFIG_X: |
+    GITLAB_OMNIBUS_CONFIG: |
         # 备份保持时间（7天）
         gitlab_rails['backup_keep_time'] = 604800
         #postgresql['shared_buffers'] = '256MB'
@@ -15,6 +15,7 @@ data:
         gitlab_rails['gitlab_shell_ssh_port'] = 9000
         # 头像始终使用https
         gitlab_rails['gravatar_plain_url'] = "https://secure.gravatar.com/avatar/%{hash}?s=%{size}&d=identicon"
+        {{- if .Values.email.enabled }}
         # 通知email
         gitlab_rails['gitlab_email_from'] = '{{ .Values.email.gitlab_email_from }}'
         gitlab_rails['smtp_enable'] = true
@@ -26,14 +27,6 @@ data:
         gitlab_rails['smtp_authentication'] = 'login'
         gitlab_rails['smtp_enable_starttls_auto'] = true
         gitlab_rails['smtp_tls'] = true
-        # Github登录
-        gitlab_rails['omniauth_enabled'] = true
-        gitlab_rails['omniauth_providers'] = [{
-            "name" => "github",
-            "app_id" => "{{ .Values.gitlab_rails.app_id }}",
-            "app_secret" => "{{ .Values.gitlab_rails.app_secret }}",
-            "args" => { "scope" => "user:email" }
-        }]
         # 回复email
         gitlab_rails['incoming_email_enabled'] = true
         gitlab_rails['incoming_email_address'] = '{{ .Values.email.incoming_email_address }}'
@@ -45,6 +38,17 @@ data:
         gitlab_rails['incoming_email_start_tls'] = false
         gitlab_rails['incoming_email_mailbox_name'] = 'inbox'
         gitlab_rails['incoming_email_idle_timeout'] = 60
+        {{- end }}
+        {{- if .Values.github.enabled }}
+        # Github登录
+        gitlab_rails['omniauth_enabled'] = true
+        gitlab_rails['omniauth_providers'] = [{
+            "name" => "github",
+            "app_id" => "{{ .Values.github.app_id }}",
+            "app_secret" => "{{ .Values.github.app_secret }}",
+            "args" => { "scope" => "user:email" }
+        }]
+        {{- end }}
         # 反向代理下显示正确的真实IP
         nginx['real_ip_trusted_addresses'] = [ '192.168.1.0/24', '192.168.2.0/24', '2001:0db8::/32' ]
         nginx['real_ip_header'] = 'X-Forwarded-For'
@@ -53,8 +57,8 @@ data:
         nginx['listen_https'] = false
         nginx['listen_port'] = 80
         # 同时兼容http和https
-        nginx['custom_gitlab_server_config'] = "set $$ssl 'on';\nif ($$http_x_forwarded_proto = 'http') {\n  set $$ssl 'off';\n}\nif ($$http_x_forwarded_proto = '') {\n  set $$ssl 'off';\n}"
+        nginx['custom_gitlab_server_config'] = "set $ssl 'on';\nif ($http_x_forwarded_proto = 'http') {\n  set $ssl 'off';\n}\nif ($http_x_forwarded_proto = '') {\n  set $ssl 'off';\n}"
         nginx['proxy_set_headers'] = {
-            "Host" => "$$http_host",
-            "X-Forwarded-Ssl" => "$$ssl"
+            "Host" => "$http_host",
+            "X-Forwarded-Ssl" => "$ssl"
         }
