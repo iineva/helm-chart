@@ -5,9 +5,9 @@ metadata:
   name: {{ template "gitlab.fullname" . }}
 spec:
   accessModes:
-    {{- toYaml .Values.persistent.accessModes | nindent 4 }}
+    {{- toYaml .Values.persistence.accessModes | nindent 4 }}
   volumeMode: Filesystem
   resources:
     requests:
-      storage: {{ .Values.persistent.size }}
-  storageClassName: {{ .Values.persistent.storageClassName }}
+      storage: {{ .Values.persistence.size }}
+  storageClassName: {{ .Values.persistence.storageClassName }}

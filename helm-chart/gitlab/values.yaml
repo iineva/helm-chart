@@ -78,7 +78,7 @@ affinity: {}
 # 指定节点名字
 nodeName:
 
-persistent:
+persistence:
   accessModes:
     - ReadWriteOnce
   size: 100Gi

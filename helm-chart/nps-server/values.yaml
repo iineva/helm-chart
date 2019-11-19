@@ -67,7 +67,7 @@ tolerations: []
 
 affinity: {}
 
-persistent:
+persistence:
   accessModes: []
   size: 100Mi
   storageClassName: "default"

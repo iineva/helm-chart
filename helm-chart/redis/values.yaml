@@ -50,7 +50,7 @@ tolerations: []
 
 affinity: {}
 
-persistent:
+persistence:
   accessModes:
     - ReadWriteOnce
   size: 1Gi
