@@ -7,9 +7,18 @@
 {{- end }}
 {{- end }}
 
-2. 使用方法
+2. 使用athens-proxy
+
+# 临时使用
 {{- range $host := .Values.ingress.hosts }}
   {{- range .paths }}
-  npm set registry https://{{ $host.host }}{{ . }}
+  export GOPROXY=https://{{ $host.host }}{{ . }}
+  {{- end }}
+{{- end }}
+
+# 永久设置
+{{- range $host := .Values.ingress.hosts }}
+  {{- range .paths }}
+  go env -w GOPROXY=https://{{ $host.host }}{{ . }}
   {{- end }}
 {{- end }}
