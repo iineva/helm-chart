@@ -74,4 +74,6 @@ timezone: Asia/Shanghai
 
 config:
   log:
-    loglevel: warning
+    loglevel: debug
+
+clientMode: false

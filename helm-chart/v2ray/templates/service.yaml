@@ -1,3 +1,4 @@
+{{- if not .Values.clientMode }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,4 +35,5 @@ spec:
     {{- end }}
   selector:
     {{- include "v2ray.selectorLabels" . | nindent 4 }}
+{{- end }}
 {{- end }}
