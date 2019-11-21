@@ -3,7 +3,7 @@ entries:
   activemq:
   - apiVersion: v2
     appVersion: 5.15.6-alpine
-    created: "2019-11-20T21:53:46.138695+08:00"
+    created: "2019-11-21T16:40:44.807263+08:00"
     description: A Helm chart for Kubernetes
     digest: 1fc75b6f3e24852108f830577546bb19ea52a9738511968452516cc59be94219
     name: activemq
@@ -14,7 +14,7 @@ entries:
   alibaba-cloud-log:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-11-20T21:53:46.139162+08:00"
+    created: "2019-11-21T16:40:44.80772+08:00"
     description: alibaba cloud log service for kubernetes. Include controller and
       logtail daemonset
     digest: 809ea23e9d05a759218e66576a0d0e8e2cbcfe18b59e8bc83f717e25b658e0e3
@@ -25,7 +25,7 @@ entries:
   api-server:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.139913+08:00"
+    created: "2019-11-21T16:40:44.808073+08:00"
     description: A Helm chart for Kubernetes
     digest: 6e5d3ab09ed15913889a1f9ea60beb76d9e64c0a7e956c8f1d20287cc76b0304
     name: api-server
@@ -36,7 +36,7 @@ entries:
   athens-proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.140876+08:00"
+    created: "2019-11-21T16:40:44.808491+08:00"
     description: A Helm chart for Kubernetes
     digest: 3f5552ba2d0328f03d059bc45e817464b12c1520deb08786a2175b3031d552db
     name: athens-proxy
@@ -47,9 +47,9 @@ entries:
   gitlab:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.141413+08:00"
+    created: "2019-11-21T16:40:44.809074+08:00"
     description: Gitlab Helm chart for Kubernetes
-    digest: 74b92ff9fb241f11717cc057fcc01cfc3e040fd94ca6e75e0387e65c9ff279a3
+    digest: e7c8cedd1e81760863a84ab8b9c1d12400517ab0e9fe8cf83aed703a36a9b598
     name: gitlab
     type: application
     urls:
@@ -58,7 +58,7 @@ entries:
   ipa-server:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2019-11-20T21:53:46.141843+08:00"
+    created: "2019-11-21T16:40:44.809507+08:00"
     description: A Helm chart for Kubernetes
     digest: 5dac8ba441b5694ca09c8057972c2d8252dc00815a9d7ae214a632bef946580f
     name: ipa-server
@@ -69,7 +69,7 @@ entries:
   nfs-client-provisioner:
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2019-11-20T21:53:46.142422+08:00"
+    created: "2019-11-21T16:40:44.810666+08:00"
     description: nfs-client is an automatic provisioner that used your *already configured*
       NFS server, automatically creating Persistent Volumes.
     digest: c7cc416c360e4a8f56af78760c2c8b57a06eb050d411413cc97c29b58e0a895b
@@ -89,7 +89,7 @@ entries:
   nps-server:
   - apiVersion: v2
     appVersion: 0.23.2
-    created: "2019-11-20T21:53:46.142898+08:00"
+    created: "2019-11-21T16:40:44.811172+08:00"
     description: A Helm chart for Kubernetes
     digest: 8b3da68b0a5f2ca8c95db5a52aeef2fc502ce54452bbf144962d4a6f80b41257
     name: nps-server
@@ -100,7 +100,7 @@ entries:
   pvc:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.143196+08:00"
+    created: "2019-11-21T16:40:44.811439+08:00"
     description: Create PVC Helm chart for Kubernetes
     digest: 9c05a6ee493b4c0786c40a633c70681f11e09d354ae2bd160b222d2057196ade
     name: pvc
@@ -111,7 +111,7 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: 5.0.5-alpine3.10
-    created: "2019-11-20T21:53:46.143577+08:00"
+    created: "2019-11-21T16:40:44.8118+08:00"
     description: A Redis Helm chart for Kubernetes
     digest: e380df3c278fdcd6ffaca1f23971b71a2143efdc28b9a36da3b47f3355d91d2e
     name: redis
@@ -122,7 +122,7 @@ entries:
   registry-ui:
   - apiVersion: v2
     appVersion: 2.0.2
-    created: "2019-11-20T21:53:46.144156+08:00"
+    created: "2019-11-21T16:40:44.813161+08:00"
     description: registry-ui Helm chart for Kubernetes
     digest: 22b333895332aaddca643b2fce4feb088348da09f81b20bd2a3d8e977518170f
     name: registry-ui
@@ -133,7 +133,7 @@ entries:
   ss:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.1445+08:00"
+    created: "2019-11-21T16:40:44.813502+08:00"
     description: A Helm chart for Kubernetes
     digest: e5193a687b8317b25c98642cf92b07e15bbea09265dcce244dec12927ef5be46
     name: ss
@@ -144,7 +144,7 @@ entries:
   traefik:
   - apiVersion: v2
     appVersion: 1.7.16
-    created: "2019-11-20T21:53:46.144956+08:00"
+    created: "2019-11-21T16:40:44.813866+08:00"
     description: A Helm chart for Kubernetes
     digest: 0f0847bad05f28888e3f8320fb996d55fefa8b4096402b19ca4e582d84de5f39
     name: traefik
@@ -155,7 +155,7 @@ entries:
   v2ray:
   - apiVersion: v2
     appVersion: 4.21.3
-    created: "2019-11-20T21:53:46.146333+08:00"
+    created: "2019-11-21T16:40:44.814216+08:00"
     description: A Helm chart for Kubernetes
     digest: db9ec8beb57b1f32bf3a0d756e34416feb49feb1cac303e1e90126866dc9f955
     name: v2ray
@@ -166,7 +166,7 @@ entries:
   verdaccio:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.14693+08:00"
+    created: "2019-11-21T16:40:44.814648+08:00"
     description: A Helm chart for Kubernetes
     digest: 695a53dde66c87ac5000b825e7af0e02c7c860f83cc087af4b1d2a13b9e9b6dd
     name: verdaccio
@@ -177,7 +177,7 @@ entries:
   weave:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2019-11-20T21:53:46.147196+08:00"
+    created: "2019-11-21T16:40:44.814852+08:00"
     description: A Helm chart for Kubernetes
     digest: 79cd55812ec3dad9623c7870824674b1e5d23cb3ee180fd7aa831024fcef3962
     name: weave
@@ -185,4 +185,4 @@ entries:
     urls:
     - https://iineva.github.io/helm-chart/package/weave-1.0.0.tgz
     version: 1.0.0
-generated: "2019-11-20T21:53:46.137487+08:00"
+generated: "2019-11-21T16:40:44.80638+08:00"
