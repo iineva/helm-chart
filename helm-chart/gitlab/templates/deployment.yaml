@@ -29,6 +29,9 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: {{ include "gitlab.fullname" . }}
+        - name: config
+          configMap:
+            name: {{ include "gitlab.fullname" . }}
     {{- if .Values.nodeName }}
       nodeName: {{ .Values.nodeName }}
     {{- end }}
@@ -45,6 +48,16 @@ spec:
             - name: data
               mountPath: /etc/gitlab/
               subPath: config
+            - name: config
+              mountPath: /entrypion.sh
+              subPath: entrypion.sh
+              readOnly: true
+{{- if .Values.backup.enabled }}
+            - name: config
+              mountPath: /gitlab-backup.sh
+              subPath: gitlab-backup.sh
+              readOnly: true
+{{- end }}
           ports:
             - name: http
               containerPort: 80
@@ -65,10 +78,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: {{ include "gitlab.fullname" . }}
-          command:
-            - bash
-            - -c
-            - sed -i "s/MIN_CHARS_FOR_PARTIAL_MATCHING = 3/MIN_CHARS_FOR_PARTIAL_MATCHING = 1/g" /opt/gitlab/embedded/service/gitlab-rails/lib/gitlab/sql/pattern.rb && /assets/wrapper
+          command: [bash, /entrypion.sh]
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

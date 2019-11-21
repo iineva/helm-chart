@@ -107,3 +107,12 @@ email:
   incoming_email_password: password
   incoming_email_host: imap.example.local
   incoming_email_port: 993
+
+
+backup:
+  # 是否开启备份
+  enabled: false
+  # 备份保留天数
+  keepDays: 7
+  # 每天几点备份
+  everyDayOnHour: 4
