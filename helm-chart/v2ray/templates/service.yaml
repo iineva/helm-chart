@@ -14,6 +14,7 @@ spec:
       name: http
   selector:
     {{- include "v2ray.selectorLabels" . | nindent 4 }}
+{{- end }}
 
 {{- if .Values.nodePorts }}
 ---
@@ -35,5 +36,4 @@ spec:
     {{- end }}
   selector:
     {{- include "v2ray.selectorLabels" . | nindent 4 }}
-{{- end }}
 {{- end }}

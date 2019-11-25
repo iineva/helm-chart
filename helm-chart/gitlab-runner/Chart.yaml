@@ -1,4 +1,5 @@
 appVersion: 12.5.0
+apiVersion: v2
 description: GitLab Runner
 icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
 keywords:
