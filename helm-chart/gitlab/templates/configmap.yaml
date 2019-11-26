@@ -87,9 +87,13 @@ data:
       }
       while true
       do
-        if [ "$(date +%H)" -eq {{ .Values.backup.everyDayOnHour | int64 | printf "%02d" }} ]; then
+        VAL=$(expr $(date -d "today {{ .Values.backup.everyDayOnHour | int64 | printf "%02d" }}" +%s) - $(date +%s))
+        if [ $VAL -gt 0 ]; then
+          # 当天未到达指定时间
+          sleep $VAL
           backup
+        else
+          sleep 10
         fi
-        sleep 10
       done
 {{- end }}
