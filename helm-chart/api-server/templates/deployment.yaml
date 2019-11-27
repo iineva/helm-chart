@@ -52,4 +52,11 @@ spec:
             - configMapRef:
                 name: {{ include "api-server.name" $ }}-{{ .configMapName }}
           {{- end }}
+          {{- if (index . "env") }}
+          env:
+            {{- range $key, $value := .env }}
+            - name: {{ $key | quote }}
+              value: {{ $value | quote }}
+            {{- end }}
+          {{- end }}
 {{- end }}
