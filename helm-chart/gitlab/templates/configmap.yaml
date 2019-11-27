@@ -7,9 +7,22 @@ data:
     TZ: Asia/Shanghai
     # 配置Gitlab
     GITLAB_OMNIBUS_CONFIG: |
+      # 数据库配置
+      postgresql['shared_buffers'] = '512MB'
+      postgresql['max_connections'] = 500
+
+      # 关闭监控
+      prometheus_monitoring['enable'] = false
+
+      # 配置进程数节省内存，一个进程大约占用500M内存
+      unicorn['worker_processes'] = 3
+      unicorn['worker_timeout'] = 60
+
+      # 任务并发数
+      sidekiq['concurrency'] = 25
+
       # 备份保持时间（7天）
       gitlab_rails['backup_keep_time'] = {{ mul 3600 24 .Values.backup.keepDays }}
-      #postgresql['shared_buffers'] = '256MB'
       external_url '{{ .Values.external_url }}'
       gitlab_rails['gitlab_shell_ssh_port'] = 9000
       # 头像始终使用https
