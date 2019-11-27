@@ -8,7 +8,7 @@ data:
     # 配置Gitlab
     GITLAB_OMNIBUS_CONFIG: |
       # 数据库配置
-      postgresql['shared_buffers'] = '512MB'
+      postgresql['shared_buffers'] = '256MB'
       postgresql['max_connections'] = 500
 
       # 关闭监控
@@ -19,7 +19,7 @@ data:
       unicorn['worker_timeout'] = 60
 
       # 任务并发数
-      sidekiq['concurrency'] = 25
+      sidekiq['concurrency'] = 5
 
       # 备份保持时间（7天）
       gitlab_rails['backup_keep_time'] = {{ mul 3600 24 .Values.backup.keepDays }}
