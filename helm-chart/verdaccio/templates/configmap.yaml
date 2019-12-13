@@ -6,4 +6,4 @@ metadata:
     {{- include "verdaccio.selectorLabels" . | nindent 4 }}
 data:
   config.yaml: |-
-{{ .Values.configMap | indent 4 }}
+{{ toYaml .Values.configMap | indent 4 }}
