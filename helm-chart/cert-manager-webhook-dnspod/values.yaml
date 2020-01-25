@@ -12,9 +12,9 @@ certManager:
   namespace: cert-manager
   serviceAccountName: cert-manager
 
-#secrets:
-# apiID:
-# apiToken:
+secrets:
+ apiID:
+ apiToken:
 
 clusterIssuer:
   enabled: false
