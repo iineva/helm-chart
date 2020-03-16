@@ -66,3 +66,17 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{- define "api-server.sortAlphaKeyValue" -}}
+{{- range $key := (keys .) | sortAlpha -}}
+{{ $key }}: "{{ get $ $key }}"
+{{- end -}}
+{{- end -}}
+
+{{- define "api-server.configHash" -}}
+{{- range $name, $configs := .root.Values.configMaps }}
+{{- if eq $name (default "" $.name) -}}
+{{- include "api-server.sortAlphaKeyValue" $configs | sha256sum -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}

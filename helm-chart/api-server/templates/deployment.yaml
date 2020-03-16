@@ -5,7 +5,7 @@ kind: Deployment
 metadata:
   name: {{ include "api-server.name" $ }}-{{ .name }}
   annotations:
-    reloader.stakater.com/auto: "true"
+    checksum/config: {{ include "api-server.configHash" (dict "root" $ "name" .configMapName) | quote }}
 spec:
   replicas: {{ default $.Values.default.replicas .replicas }}
   selector:
