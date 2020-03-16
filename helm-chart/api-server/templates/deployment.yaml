@@ -4,8 +4,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "api-server.name" $ }}-{{ .name }}
-  annotations:
-    checksum/config: {{ include "api-server.configHash" (dict "root" $ "name" .configMapName) | quote }}
 spec:
   replicas: {{ default $.Values.default.replicas .replicas }}
   selector:
@@ -15,6 +13,8 @@ spec:
     metadata:
       labels:
         app: {{ include "api-server.name" $ }}-{{ .name }}
+      annotations:
+        checksum/config: {{ include "api-server.configHash" (dict "root" $ "name" .configMapName) | quote }}
     spec:
     {{- with $.Values.default.imagePullSecrets }}
       imagePullSecrets:
