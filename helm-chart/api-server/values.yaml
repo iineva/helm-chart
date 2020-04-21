@@ -1,6 +1,7 @@
 default:
   repository: example.local
   imagePullSecrets:
+  annotations: {}
   resources: {}
   replicas: 2
   tag: "latest"

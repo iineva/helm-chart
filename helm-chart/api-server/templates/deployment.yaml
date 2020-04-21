@@ -15,6 +15,9 @@ spec:
         app: {{ include "api-server.name" $ }}-{{ .name }}
       annotations:
         checksum/config: {{ include "api-server.configHash" (dict "root" $ "name" .configMapName) | quote }}
+        {{- if not (default $.Values.default.annotations .annotations | empty) }}
+        {{- default $.Values.default.annotations .annotations | toYaml | nindent 8 }}
+        {{- end }}
     spec:
     {{- with $.Values.default.imagePullSecrets }}
       imagePullSecrets:
