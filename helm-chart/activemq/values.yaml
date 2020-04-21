@@ -46,6 +46,8 @@ resources: {}
 
 nodeSelector: {}
 
+annotations: {}
+
 tolerations: []
 
 affinity: {}

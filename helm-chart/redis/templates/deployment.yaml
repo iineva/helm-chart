@@ -4,8 +4,6 @@ metadata:
   name: {{ include "redis.fullname" . }}
   labels:
     {{- include "redis.labels" . | nindent 4 }}
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -15,6 +13,10 @@ spec:
       {{- include "redis.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- if not (empty .Values.annotations) }}
+      annotations:
+        {{- .Values.annotations | toYaml | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "redis.selectorLabels" . | nindent 8 }}
     spec:

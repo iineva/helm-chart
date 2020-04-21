@@ -4,8 +4,6 @@ metadata:
   name: {{ include "activemq.fullname" . }}
   labels:
     {{- include "activemq.labels" . | nindent 4 }}
-  annotations:
-    reloader.stakater.com/auto: "true"
 spec:
   replicas: 1
   strategy:
@@ -15,6 +13,10 @@ spec:
       {{- include "activemq.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      {{- if not (empty .Values.annotations) }}
+      annotations:
+        {{- .Values.annotations | toYaml | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "activemq.selectorLabels" . | nindent 8 }}
     spec:
