@@ -9,9 +9,12 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     {{/* 开启HSTS严格传输安全 */}}
+    {{- if $submodules.unForceHttps }}
+    {{- else }}
     ingress.kubernetes.io/ssl-redirect: "true"
     ingress.kubernetes.io/force-hsts: "true"
     ingress.kubernetes.io/hsts-max-age: "31536000"
+    {{- end }}
     traefik.frontend.priority: "{{ default 10 $ingress.priority }}"
     traefik.frontend.rule.type: "{{ default "PathPrefix" $ingress.ruleType }}"
     {{- if $ingress.addPrefix }}
