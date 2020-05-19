@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ingress-cert-reflector.fullname" . }}
+  labels:
+    {{- include "ingress-cert-reflector.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "ingress-cert-reflector.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "ingress-cert-reflector.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "ingress-cert-reflector.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: ingress-cert-reflector
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          command:
+            - bash
+            - -c
+            - |
+              set -e
+
+              # output log in time zone +08:00
+              function log() {
+                echo -e "`date -d @$$((\`date +%s\`+3600*8)) '+%Y-%m-%d %H:%M:%S'` $$@"
+              }
+
+              syncCert() {
+                export FROM_NS="$1"
+                export FROM_ST="$2"
+                export TO_NS="$3"
+                export TO_ST="$4"
+
+                while true; do
+                  echo "$(date '+%Y-%m-%d %H:%M:%S') starting watch: $FROM_NS/$FROM_ST --> $TO_NS/$TO_ST"
+                  kubectl -n "$FROM_NS" get secret "$FROM_ST" --watch --no-headers -o "custom-columns=:metadata.name" | \
+                  while read secret; do
+                    yaml_str=$(\
+                      kubectl -n "$FROM_NS" get secret "$secret" -o yaml | \
+                      sed "s/ name: $FROM_ST/ name: $TO_ST/" | \
+                      sed "s/ namespace: $FROM_NS/ namespace: $TO_NS/" | \
+                      sed "/uid: /d" | \
+                      sed "/selfLink: /d" | \
+                      sed "/resourceVersion: /d" | \
+                      sed "/creationTimestamp: /d"
+                    )
+                    {{- if .Values.logging }}
+                    echo "$yaml_str"
+                    {{- end }}
+                    echo "$yaml_str" | kubectl apply -f -
+                    echo "$(date '+%Y-%m-%d %H:%M:%S') apply: $FROM_NS/$FROM_ST --> $TO_NS/$TO_ST"
+                  done
+                  # waiting for secret created
+                  sleep 3
+                done
+              }
+
+              {{- range $index, $secret := .Values.secrets }}
+              syncCert \
+                "{{ index (splitList "/" $secret.from) 0 }}" \
+                "{{ index (splitList "/" $secret.from) 1 }}" \
+                "{{ index (splitList "/" $secret.to) 0 }}" \
+                "{{ index (splitList "/" $secret.to) 1 }}" &
+              {{- end }}
+
+              # keep running
+              tail -f /dev/null
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
