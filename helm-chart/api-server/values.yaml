@@ -4,6 +4,7 @@ default:
   annotations: {}
   resources: {}
   replicas: 2
+  ingress: {}
   tag: "latest"
 
 host: example.local

@@ -7,31 +7,36 @@ kind: Ingress
 metadata:
   name: {{ include "api-server.name" $ }}-{{ $submodules.name }}-{{ default $index $ingress.name }}
   annotations:
-    kubernetes.io/ingress.class: traefik
-    {{/* 开启HSTS严格传输安全 */}}
-    {{- if $submodules.unForceHttps }}
-    {{- else }}
-    ingress.kubernetes.io/ssl-redirect: "true"
-    ingress.kubernetes.io/force-hsts: "true"
-    ingress.kubernetes.io/hsts-max-age: "31536000"
+    {{- with $.Values.default.ingress.annotations }}
+      {{- toYaml . | nindent 4 }}
     {{- end }}
-    traefik.frontend.priority: "{{ default 10 $ingress.priority }}"
-    traefik.frontend.rule.type: "{{ default "PathPrefix" $ingress.ruleType }}"
+    {{- with $ingress.anitations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
     {{- if $ingress.addPrefix }}
-    traefik.ingress.kubernetes.io/request-modifier: "AddPrefix: {{ $ingress.addPrefix }}"
-    {{- end }}
-    {{- if $ingress.annotations }}
-      {{- toYaml $ingress.annotations | nindent 4 }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ $ingress.addPrefix }}$request_uri
     {{- end }}
 spec:
   rules:
     - host: {{ default $.Values.host $ingress.host }}
       http:
         paths:
-          - path: {{ $ingress.path }}
+          {{- range (splitList "," $ingress.path) }}
+          - path: {{ . }}
             backend:
               serviceName: {{ include "api-server.name" $ }}-{{ $submodules.name }}
               servicePort: http
+          {{- end }}
+  tls:
+  {{- if $ingress.TLS }}
+    {{- toYaml . | nindent 4 }}
+  {{- else }}
+  {{- range $.Values.TLSHosts }}
+  - hosts:
+      - {{ .host | quote }}
+    secretName: {{ .secretName }}
+  {{- end }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
