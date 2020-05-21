@@ -72,3 +72,5 @@ persistence:
 
 # 访问控制密码
 accessKey:
+
+nodeName:
