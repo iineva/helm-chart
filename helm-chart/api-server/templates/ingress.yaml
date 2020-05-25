@@ -31,11 +31,7 @@ spec:
   {{- if $ingress.TLS }}
     {{- toYaml . | nindent 4 }}
   {{- else }}
-  {{- range $.Values.TLSHosts }}
-  - hosts:
-      - {{ .host | quote }}
-    secretName: {{ .secretName }}
-  {{- end }}
+    {{- toYaml $.Values.TLS | nindent 4 }}
   {{- end }}
 {{- end }}
 {{- end }}

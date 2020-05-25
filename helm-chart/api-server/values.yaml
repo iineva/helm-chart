@@ -10,6 +10,8 @@ default:
 host: example.local
 namespace: api-server
 
+TLS: []
+
 submodules:
   - name: api
     # 关闭健康检测
