@@ -10,7 +10,7 @@ metadata:
     {{- with $.Values.default.ingress.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    {{- with $ingress.anitations }}
+    {{- with $ingress.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
     {{- if $ingress.addPrefix }}
