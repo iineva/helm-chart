@@ -70,12 +70,15 @@ spec:
                 done
               }
 
-              {{- range $index, $secret := .Values.secrets }}
+              {{- range $secret := .Values.secrets }}
+              {{- range $target := $secret.target }}
+              # {{ $secret.source }} --> {{ $target }}
               syncCert \
-                "{{ index (splitList "/" $secret.from) 0 }}" \
-                "{{ index (splitList "/" $secret.from) 1 }}" \
-                "{{ index (splitList "/" $secret.to) 0 }}" \
-                "{{ index (splitList "/" $secret.to) 1 }}" &
+                "{{ index (splitList "/" $secret.source) 0 }}" \
+                "{{ index (splitList "/" $secret.source) 1 }}" \
+                "{{ index (splitList "/" $target) 0 }}" \
+                "{{ index (splitList "/" $target) 1 }}" &
+              {{- end }}
               {{- end }}
 
               # keep running
