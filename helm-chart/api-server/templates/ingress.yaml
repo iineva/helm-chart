@@ -13,9 +13,6 @@ metadata:
     {{- with $ingress.annotations }}
       {{- toYaml . | nindent 4 }}
     {{- end }}
-    {{- if $ingress.addPrefix }}
-    nginx.ingress.kubernetes.io/rewrite-target: {{ $ingress.addPrefix }}$uri
-    {{- end }}
 spec:
   rules:
     - host: {{ default $.Values.host $ingress.host }}

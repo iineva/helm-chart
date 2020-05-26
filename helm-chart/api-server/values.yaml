@@ -26,12 +26,8 @@ submodules:
       - name: api
         # 捕获路径
         path: /
-        # 权重
-        priority: 10
-        # 规则类型
-        ruleType: PathPrefix
-        # 访问后端服务时，添加路径前缀
-        addPrefix: /home
+        # annotations
+        annotations: {}
 
 env:
   TZ: Asia/Shanghai
