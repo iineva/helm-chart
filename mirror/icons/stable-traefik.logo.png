@@ -59,7 +59,7 @@
 <meta name="generator" content="Ghost 3.16" />
 <link rel="alternate" type="application/rss+xml" title="Containous: Makes Networking Boring" href="" />
 
-<script type="2523b540b1b5d22e7d23bb05-text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<script type="6a4dce484e8f0d0c5359aaa5-text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -80,7 +80,7 @@
 </div>
 </div>
 </div>
-<script type="2523b540b1b5d22e7d23bb05-text/javascript">
+<script type="6a4dce484e8f0d0c5359aaa5-text/javascript">
     var announcement_banner = document.querySelector('.announcement');
     var isAnnouncementVisible = localStorage.getItem('isAnnouncementVisible');
     if(isAnnouncementVisible === "true" || isAnnouncementVisible === null){
@@ -295,7 +295,7 @@ Started</a>
 <div class="item">
 <div class="icon">
 <img src="/assets/img/traefik/features/downloads-icon.svg?v=a2f37c8ec2" />
-</div>
+ </div>
 <div class="content">
 <div class="title">1 Billion+</div>
 <div class="sub-title">Downloads</div>
@@ -390,7 +390,7 @@ integrates with every major cluster technology... No wonder it's so popular!</p>
 <h2>Architecture Overview</h2>
 </div>
 <div class="diagram">
- <div class="traefik-diagram-svg">
+<div class="traefik-diagram-svg">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1440" height="869" viewBox="0 0 1440 869">
 <defs>
 <rect id="diagram-traefik-a" width="1441" height="952" x="0" y="0" />
@@ -551,7 +551,7 @@ helm install stable/traefik
 <h4>From Source</h4>
 <p>Clone the official repository from github:</p>
 <div class="code">
-git clone <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1c7b75685c7b756874697e327f7371">[email&#160;protected]</a>:containous/traefik.git
+git clone <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d2b5bba692b5bba6baa7b0fcb1bdbf">[email&#160;protected]</a>:containous/traefik.git
 </div>
 <p>And then follow the <a href="https://github.com/containous/traefik/blob/master/CONTRIBUTING.md#build-tr%C3%A6fik">how
 to compile instructions</a> from the contributing documentation.</p>
@@ -643,8 +643,8 @@ to compile instructions</a> from the contributing documentation.</p>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> </button>
 </div>
 </form>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script charset="utf-8" type="2523b540b1b5d22e7d23bb05-text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
-<script type="2523b540b1b5d22e7d23bb05-text/javascript">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script charset="utf-8" type="6a4dce484e8f0d0c5359aaa5-text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+<script type="6a4dce484e8f0d0c5359aaa5-text/javascript">
                         hbspt.forms.create({
                             portalId: "5814022",
                             formId: "195f7321-e7f5-4fe0-9c3e-49466380956f"
@@ -757,11 +757,11 @@ Containous uses cookies to improve your experience. By continuing to browse the 
 <button class="btn-type-1">OK</button>
 </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="2523b540b1b5d22e7d23bb05-text/javascript">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="6a4dce484e8f0d0c5359aaa5-text/javascript">
     </script>
-<script src="/assets/built/js/main.js?v=a2f37c8ec2" type="2523b540b1b5d22e7d23bb05-text/javascript"></script>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" type="2523b540b1b5d22e7d23bb05-text/javascript"></script>
-<script type="2523b540b1b5d22e7d23bb05-text/javascript">
+<script src="/assets/built/js/main.js?v=a2f37c8ec2" type="6a4dce484e8f0d0c5359aaa5-text/javascript"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" type="6a4dce484e8f0d0c5359aaa5-text/javascript"></script>
+<script type="6a4dce484e8f0d0c5359aaa5-text/javascript">
     $(document).ready(function () {
         // after the traefikee dashboard screenshot has loaded completely, make it visible.
         $('.traefik-intro__screenshot').imagesLoaded(function () {
@@ -803,8 +803,8 @@ Containous uses cookies to improve your experience. By continuing to browse the 
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PLVGX"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<script src="https://embed.typeform.com/embed.js" type="2523b540b1b5d22e7d23bb05-text/javascript"></script>
-<script type="2523b540b1b5d22e7d23bb05-text/javascript">
+<script src="https://embed.typeform.com/embed.js" type="6a4dce484e8f0d0c5359aaa5-text/javascript"></script>
+<script type="6a4dce484e8f0d0c5359aaa5-text/javascript">
         var survey_popup;
         $(document).ready(function(){
             survey_popup = window.typeformEmbed.makePopup('https://traefikambassador.typeform.com/to/Fbi0ws', {
@@ -822,5 +822,5 @@ Containous uses cookies to improve your experience. By continuing to browse the 
             });
         }
     </script>
-<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="2523b540b1b5d22e7d23bb05-|49" defer=""></script></body>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="6a4dce484e8f0d0c5359aaa5-|49" defer=""></script></body>
 </html>

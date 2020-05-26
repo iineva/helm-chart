@@ -79,6 +79,7 @@ func main() {
 	}
 
 	// save index.yaml file
+	newIndex.SortEntries()
 	indexFileData, err := yaml.Marshal(newIndex)
 	if err != nil {
 		panic(err)

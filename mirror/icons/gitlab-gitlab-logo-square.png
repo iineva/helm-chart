@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html class="devise-layout-html">
-<script nonce="bY06AacV2RQTLy3j/2LGDw==">
+<script nonce="RGuLvJzcU2aay+0Z3kiYPg==">
 //<![CDATA[
 if (window.location.hash === '#register-pane') {
   window.location.replace("/users/sign_up")
@@ -33,7 +33,7 @@ if (window.location.hash === '#register-pane') {
 
 
 <link rel="stylesheet" media="all" href="https://assets.gitlab-static.net/assets/highlight/themes/white-a20fa0d18cb98944b079c02ad5a6f46cb362f986ffd703fda24b3e8e2a4a8874.css" />
-<script nonce="bY06AacV2RQTLy3j/2LGDw==">
+<script nonce="RGuLvJzcU2aay+0Z3kiYPg==">
 //<![CDATA[
 window.gon={};gon.api_version="v4";gon.default_avatar_url="https://assets.gitlab-static.net/assets/no_avatar-849f9c04a3a0d0cea2424ae97b27447dc64a7dbfae83c036c45b403392f0e8ba.png";gon.max_file_size=10;gon.asset_host="https://assets.gitlab-static.net";gon.webpack_public_path="https://assets.gitlab-static.net/assets/webpack/";gon.relative_url_root="";gon.shortcuts_path="/help/shortcuts";gon.user_color_scheme="white";gon.sentry_dsn="https://526a2f38a53d44e3a8e69bfa001d1e8b@sentry.gitlab.net/15";gon.sentry_environment=null;gon.gitlab_url="https://gitlab.com";gon.revision="66cb66d941d";gon.gitlab_logo="https://assets.gitlab-static.net/assets/gitlab_logo-7ae504fe4f68fdebb3c2034e36621930cd36ea87924c11ff65dbcb8ed50dca58.png";gon.sprite_icons="https://gitlab.com/assets/icons-f0dc26411f6d9ceb1d30eab71475c17cca53e166e5c0d192565c1a25af40502e.svg";gon.sprite_file_icons="https://gitlab.com/assets/file_icons-7262fc6897e02f1ceaf8de43dc33afa5e4f9a2067f4f68ef77dcc87946575e9e.svg";gon.emoji_sprites_css_path="https://assets.gitlab-static.net/assets/emoji_sprites-289eccffb1183c188b630297431be837765d9ff4aed6130cf738586fb307c170.css";gon.test_env=false;gon.disable_animations=null;gon.suggested_label_colors={"#0033CC":"UA blue","#428BCA":"Moderate blue","#44AD8E":"Lime green","#A8D695":"Feijoa","#5CB85C":"Slightly desaturated green","#69D100":"Bright green","#004E00":"Very dark lime green","#34495E":"Very dark desaturated blue","#7F8C8D":"Dark grayish cyan","#A295D6":"Slightly desaturated blue","#5843AD":"Dark moderate blue","#8E44AD":"Dark moderate violet","#FFECDB":"Very pale orange","#AD4363":"Dark moderate pink","#D10069":"Strong pink","#CC0033":"Strong red","#FF0000":"Pure red","#D9534F":"Soft red","#D1D100":"Strong yellow","#F0AD4E":"Soft orange","#AD8D43":"Dark moderate orange"};gon.first_day_of_week=0;gon.ee=true;gon.features={"snippetsVue":true,"monacoBlobs":false,"monacoCi":false,"snippetsEditVue":false,"webperfExperiment":false};
 //]]>
@@ -46,8 +46,8 @@ window.gon={};gon.api_version="v4";gon.default_avatar_url="https://assets.gitlab
 <script src="https://assets.gitlab-static.net/assets/webpack/pages.sessions.new.271bbdad.chunk.js" defer="defer"></script>
 
 <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="gCKwEq3l9j9XJhm9NZA+p1ady1pwjrASambezqyjSDIFmN2+iUvWoXB7D7J+zke9F4goMW0e1khnDiitsxscCw==" />
-<meta name="csp-nonce" content="bY06AacV2RQTLy3j/2LGDw==" />
+<meta name="csrf-token" content="yAWMKoiAThansGEmOgX/UXnqKEXSGdGCs/thFUertO9EAU12WRUSkHuPoDJpbrlJ22nAk3AjUqR0DwlRehMbHQ==" />
+<meta name="csp-nonce" content="RGuLvJzcU2aay+0Z3kiYPg==" />
 <meta name="action-cable-url" content="/-/cable" />
 <meta content="origin-when-cross-origin" name="referrer">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
@@ -62,7 +62,7 @@ window.gon={};gon.api_version="v4";gon.default_avatar_url="https://assets.gitlab
 
 
 
-<script nonce="bY06AacV2RQTLy3j/2LGDw==">
+<script nonce="RGuLvJzcU2aay+0Z3kiYPg==">
 //<![CDATA[
 ;(function(p,l,o,w,i,n,g){if(!p[i]){p.GlobalSnowplowNamespace=p.GlobalSnowplowNamespace||[];
 p.GlobalSnowplowNamespace.push(i);p[i]=function(){(p[i].q=p[i].q||[]).push(arguments)
@@ -78,7 +78,7 @@ window.snowplowOptions = {"namespace":"gl","hostname":"snowplow.trx.gitlab.net",
 
 <body class="application gl-browser-generic gl-platform-other login-page navless ui-indigo" data-page="sessions:new" data-qa-selector="login_page">
 
-<script nonce="bY06AacV2RQTLy3j/2LGDw==">
+<script nonce="RGuLvJzcU2aay+0Z3kiYPg==">
 //<![CDATA[
 gl = window.gl || {};
 gl.client = {"isGeneric":true,"isOther":true};
@@ -127,7 +127,7 @@ GitLab.com
 <div class="tab-content">
 <div class="login-box tab-pane active" id="login-pane" role="tabpanel">
 <div class="login-body">
-<form class="new_user gl-show-field-errors" id="new_user" aria-live="assertive" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="GiEWV+dJJag1ewq2UJbNnhQcgpkM1ZUyMVsF1K9pHX6fm3v7w+cFNhImHLkbyLSEVQlh8hFF82g8M/O3sNFJRw==" /><div class="form-group">
+<form class="new_user gl-show-field-errors" id="new_user" aria-live="assertive" action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="OqPRklhusJUYbiFWFtnLDYwmgrcnf1O5lDqOW4887gW2pxDOifvsE8RR4EJFso0VLqVqYYVF0J9TzuYfsoRB9w==" /><div class="form-group">
 <label for="user_login" class="label-bold">Username or email</label>
 <input class="form-control top" autofocus="autofocus" autocapitalize="off" autocorrect="off" required="required" title="This field is required." data-qa-selector="login_field" type="text" name="user[login]" id="user_login" />
 </div>
@@ -158,10 +158,10 @@ Don&#39;t have an account yet?
 
 <div class="tab-pane login-box" id="register-pane" role="tabpanel">
 <div class="login-body">
-<form class="new_new_user gl-show-field-errors" id="new_new_user" aria-live="assertive" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="QlqVg0toxdvMVrgi3YtYJtEm+2CI0oZIZ+XgSfb4pRLH4Pgvb8blResLri2W1SE8kDMYC5VC4BJqjRYq6UDxKw==" /><div class="devise-errors">
+<form class="new_new_user gl-show-field-errors" id="new_new_user" aria-live="assertive" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="4u3WPcvO+DILFqKn0q4g4uznxjgrQHY5rxWvpTpZyulu6RdhGluktNcpY7OBxWb6TmQu7ol69R9o4cfhB+FlGw==" /><div class="devise-errors">
 
 </div>
-<div class="firstname_1590489252"><style media="screen">.firstname_1590489252 {position:absolute!important;top:-9999px;left:-9999px;}</style><label for="firstname">If you are human, please ignore this field.</label><input type="text" name="firstname" id="firstname" autocomplete="off" tabindex="-1" /></div>
+<div class="firstname_1590489678"><style media="screen">.firstname_1590489678 {position:absolute!important;height:1px;width:1px;overflow:hidden;}</style><label for="firstname">If you are human, please ignore this field.</label><input type="text" name="firstname" id="firstname" autocomplete="off" tabindex="-1" /></div>
 <div class="name form-group">
 <label class="label-bold" for="new_user_name">Full name</label>
 <input class="form-control top js-block-emoji js-validate-length" data-max-length="255" data-max-length-message="Name is too long (maximum is 255 characters)." data-qa-selector="new_user_name_field" required="required" title="This field is required." type="text" name="new_user[name]" id="new_user_name" />
