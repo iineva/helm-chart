@@ -17,6 +17,7 @@ source:
     - gitlab-runner
 - name: jetstack
   url: https://charts.jetstack.io
+  charts:
     - cert-manager
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx

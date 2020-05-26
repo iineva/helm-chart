@@ -9,9 +9,11 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"strings"
 
-	"sigs.k8s.io/yaml"
+	"github.com/otium/queue"
 	"helm.sh/helm/v3/pkg/repo"
+	"sigs.k8s.io/yaml"
 )
 
 type Source struct {
@@ -21,44 +23,33 @@ type Source struct {
 }
 
 type Config struct {
-	Source   []Source `yaml:source`
-	RootURL  string   `yaml:rootURL`
-	rootPath string
-	rootHost string
+	Source  []Source `yaml:source`
+	RootURL string   `yaml:rootURL`
 }
 
-func (c *Config) RootPath() string {
-	if len(c.rootPath) == 0 {
-		urls, _ := url.Parse(c.RootURL)
-		if len(urls.Path) == 0 {
-			c.rootPath = "/"
-		}
-		c.rootPath = urls.Path
-	}
-	return c.rootPath
+func (c *Config) GetPublicURL(p string) string {
+	u, _ := url.Parse(c.RootURL)
+	u.Path = path.Join(u.Path, p)
+	return u.String()
 }
 
-func (c *Config) PublicURL(p string) string {
-	if len(c.rootHost) == 0 {
-		urls, _ := url.Parse(c.RootURL)
-		urls.Path = ""
-		c.rootHost = urls.String()
-	}
-	return c.rootHost + p
-}
-
-func (c *Config) GetIconURL(u, chartName string) string {
+func (s *Source) GetIconPath(u string) string {
 	u2, _ := url.Parse(u)
-	return c.PublicURL(path.Join(c.RootPath(), "icons", chartName+"-"+path.Base(u2.Path)))
+	return path.Join("icons", s.Name+"-"+path.Base(u2.Path))
 }
 
-func (c *Config) GetURLs(us []string, chartName string) []string {
-	urls := []string{}
-	for _, u := range us {
-		u2, _ := url.Parse(u)
-		urls = append(urls, c.PublicURL(path.Join(c.RootPath(), "icons", chartName+"-"+path.Base(u2.Path))))
+func (s *Source) GetURLPath(u string) string {
+	u2, _ := url.Parse(u)
+	return path.Join("charts", s.Name+"-"+path.Base(u2.Path))
+}
+
+func (s *Source) GetFullURL(u string) string {
+	if strings.HasPrefix(u, "http") {
+		return u
 	}
-	return urls
+	u2, _ := url.Parse(s.Url)
+	u2.Path = path.Join(u2.Path, u)
+	return u2.String()
 }
 
 func main() {
@@ -99,6 +90,8 @@ func main() {
 	}
 	file.Write(indexFileData)
 
+	downloadQueue.Wait()
+
 	log.Println("Sync charts finish!!!")
 }
 
@@ -123,23 +116,24 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 					return nil, errors.New("chart metadata.urls is empty!")
 				}
 				for _, u := range c.URLs {
-					if err := Download(u, "charts", s); err != nil {
-						return nil, err
-					}
+					AddDownloadQueue(s.GetFullURL(u), s.GetURLPath(u))
 				}
 
 				if len(c.Icon) > 0 {
-					if err := Download(c.Icon, "icons", s); err != nil {
-						return nil, err
-					}
+					AddDownloadQueue(s.GetFullURL(c.Icon), s.GetIconPath(c.Icon))
 				}
 
 				// Parse new Entries
-				c.URLs = config.GetURLs(c.URLs, c.Name)
-				c.Icon = config.GetIconURL(c.Icon, c.Name)
+				urls := []string{}
+				for _, u := range c.URLs {
+					urls = append(urls, config.GetPublicURL(s.GetURLPath(u)))
+				}
+				chart := CopyChartVersion(c)
+				chart.URLs = urls
+				chart.Icon = config.GetPublicURL(s.GetIconPath(c.Icon))
 				newIndex.Merge(&repo.IndexFile{
 					Entries: map[string]repo.ChartVersions{
-						c.Name: repo.ChartVersions{c},
+						c.Name: repo.ChartVersions{chart},
 					},
 				})
 			}
@@ -157,6 +151,12 @@ func Index(arr []string, s string) bool {
 	}
 	return false
 }
+func CopyChartVersion(c *repo.ChartVersion) *repo.ChartVersion {
+	chart := &repo.ChartVersion{}
+	b, _ := yaml.Marshal(c)
+	yaml.Unmarshal(b, chart)
+	return chart
+}
 
 func Get(u string) ([]byte, error) {
 	log.Println("Start request URL:", u)
@@ -173,36 +173,52 @@ func Get(u string) ([]byte, error) {
 }
 
 var (
-	downloadURLs = []string{}
+	downloadURLs  = []string{}
+	downloadQueue *queue.Queue
 )
 
-func Download(u, dir string, s Source) error {
+func AddDownloadQueue(u, filePath string) {
 
 	if Index(downloadURLs, u) {
-		return nil
+		return
 	}
-
-	log.Println("Start download URL:", u)
 	downloadURLs = append(downloadURLs, u)
-	resp, err := http.Get(u)
-	if err != nil {
-		return err
+
+	type downloadTask struct {
+		url      string
+		filePath string
 	}
 
-	if err := os.MkdirAll(dir, 0755); err != nil {
-		return err
+	if downloadQueue == nil {
+		downloadQueue = queue.NewQueue(func(val interface{}) {
+
+			task := val.(downloadTask)
+
+			log.Println("Start download URL:", task.url)
+			resp, err := http.Get(task.url)
+			if err != nil {
+				panic(err)
+			}
+
+			dir := path.Dir(task.filePath)
+			if err := os.MkdirAll(dir, 0755); err != nil {
+				panic(err)
+			}
+
+			file, err := os.OpenFile(task.filePath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0755)
+			if err != nil {
+				panic(err)
+			}
+
+			if _, err := io.Copy(file, resp.Body); err != nil {
+				panic(err)
+			}
+
+		}, 20)
 	}
 
-	fileName := path.Join(dir, s.Name+"-"+path.Base(u))
-	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0755)
-
-	if err != nil {
-		return err
-	}
-
-	if _, err := io.Copy(file, resp.Body); err != nil {
-		return err
-	}
-
-	return nil
+	downloadQueue.Push(downloadTask{
+		url:      u,
+		filePath: filePath,
+	})
 }
