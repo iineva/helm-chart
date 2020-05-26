@@ -1,4 +1,4 @@
-apiVersion: ""
+apiVersion: v1
 entries:
   cert-manager:
   - apiVersion: v1
@@ -13813,7 +13813,7 @@ entries:
   raw:
   - apiVersion: v1
     appVersion: 0.2.3
-    created: "2020-05-26T09:32:47.380699671Z"
+    created: "2020-05-26T10:30:47.278197592Z"
     description: A place for all the Kubernetes resources which don't already have a home.
     digest: b441b2f3b445f7e352ba56714d05fed0f53adea458dbe01fe1cfe1f16d4092a1
     home: https://github.com/helm/charts/blob/master/incubator/raw
@@ -19611,4 +19611,4 @@ entries:
     urls:
     - https://iineva.github.io/helm-chart/mirror/charts/stable-traefik-1.1.0-a.tgz
     version: 1.1.0-a
-generated: "0001-01-01T00:00:00Z"
+generated: "2020-05-26T18:47:44.192881+08:00"

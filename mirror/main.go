@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"strings"
+	"time"
 
 	"github.com/otium/queue"
 	"helm.sh/helm/v3/pkg/repo"
@@ -79,6 +80,8 @@ func main() {
 	}
 
 	// save index.yaml file
+	newIndex.APIVersion = "v1"
+	newIndex.Generated = time.Now()
 	newIndex.SortEntries()
 	indexFileData, err := yaml.Marshal(newIndex)
 	if err != nil {
