@@ -2,58 +2,20 @@ package main
 
 import (
 	"errors"
-	"io"
+	"github.com/iineva/helm-chart/mirror/pkg/common"
+	"github.com/iineva/helm-chart/mirror/pkg/config"
+	"github.com/iineva/helm-chart/mirror/pkg/downloader"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"net/url"
 	"os"
 	"path"
-	"strings"
 	"time"
 
-	"github.com/otium/queue"
+	"github.com/Masterminds/semver/v3"
 	"helm.sh/helm/v3/pkg/repo"
 	"sigs.k8s.io/yaml"
-	"github.com/Masterminds/semver/v3"
 )
-
-type Source struct {
-	Name   string   `yaml:name`
-	Url    string   `yaml:url`
-	Charts []string `yaml:charts`
-}
-
-type Config struct {
-	Source        []Source `yaml:source`
-	RootURL       string   `yaml:rootURL`
-	MajorVersions uint64   `yaml:majorVersions`
-}
-
-func (c *Config) GetPublicURL(p string) string {
-	u, _ := url.Parse(c.RootURL)
-	u.Path = path.Join(u.Path, p)
-	return u.String()
-}
-
-func (s *Source) GetIconPath(u string) string {
-	u2, _ := url.Parse(u)
-	return path.Join("icons", s.Name, path.Base(u2.Path))
-}
-
-func (s *Source) GetURLPath(u string) string {
-	u2, _ := url.Parse(u)
-	return path.Join("charts", s.Name, path.Base(u2.Path))
-}
-
-func (s *Source) GetFullURL(u string) string {
-	if strings.HasPrefix(u, "http") {
-		return u
-	}
-	u2, _ := url.Parse(s.Url)
-	u2.Path = path.Join(u2.Path, u)
-	return u2.String()
-}
 
 func main() {
 
@@ -64,16 +26,18 @@ func main() {
 		panic(err)
 	}
 
-	config := &Config{}
-	if err := yaml.Unmarshal(b, config); err != nil {
+	conf := &config.Config{}
+	if err := yaml.Unmarshal(b, conf); err != nil {
 		panic(err)
 	}
+
+	download := downloader.New(int(conf.DownloadConcurrent))
 
 	newIndex := &repo.IndexFile{
 		Entries: map[string]repo.ChartVersions{},
 	}
-	for _, s := range config.Source {
-		if index, err := handleSourceDownload(config, s); err != nil {
+	for _, s := range conf.Source {
+		if index, err := handleSourceDownload(conf, s, download); err != nil {
 			log.Println(index)
 			panic(err)
 		} else {
@@ -96,18 +60,22 @@ func main() {
 	}
 	file.Write(indexFileData)
 
-	downloadQueue.Wait()
+	if conf.DownloadFiles {
+		download.Wait()
+		a, b := download.Len()
+		log.Printf("download len: %v / %v", a, b)
+	}
 
 	log.Println("Sync charts finish!!!")
 }
 
-func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
+func handleSourceDownload(conf *config.Config, s config.Source, download *downloader.Downloader) (*repo.IndexFile, error) {
 	url, err := url.Parse(s.Url)
 	if err != nil {
 		return nil, err
 	}
 	url.Path = path.Join(url.Path, "index.yaml")
-	body, err := Get(url.String())
+	body, err := common.HTTPGet(url.String())
 	index := &repo.IndexFile{}
 	yaml.Unmarshal(body, index)
 	index.SortEntries()
@@ -116,7 +84,7 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 		Entries: map[string]repo.ChartVersions{},
 	}
 	for k, v := range index.Entries {
-		if Index(s.Charts, k) {
+		if len(s.Charts) == 0 || common.Index(s.Charts, k) {
 
 			if len(v) == 0 {
 				continue
@@ -132,7 +100,7 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 				if err != nil {
 					panic(err)
 				}
-				if config.MajorVersions > 0 && maxVersion.Major()-curVersion.Major() >= config.MajorVersions {
+				if conf.MajorVersions > 0 && maxVersion.Major()-curVersion.Major() >= conf.MajorVersions {
 					continue
 				}
 
@@ -140,21 +108,34 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 					return nil, errors.New("chart metadata.urls is empty!")
 				}
 				for _, u := range c.URLs {
-					AddDownloadQueue(s.GetFullURL(u), s.GetURLPath(u))
+					if conf.DownloadFiles {
+						download.Push(s.GetFullURL(u), s.GetURLPath(u))
+					}
 				}
 
 				if len(c.Icon) > 0 {
-					AddDownloadQueue(s.GetFullURL(c.Icon), s.GetIconPath(c.Icon))
+					if conf.DownloadFiles {
+						download.Push(s.GetFullURL(c.Icon), s.GetIconPath(c.Icon))
+					}
 				}
 
+				chart := CopyChartVersion(c)
 				// Parse new Entries
 				urls := []string{}
 				for _, u := range c.URLs {
-					urls = append(urls, config.GetPublicURL(s.GetURLPath(u)))
+					if conf.DownloadFiles {
+						urls = append(urls, conf.GetPublicURL(s.GetURLPath(u)))
+					} else {
+						urls = append(urls, s.GetFullURL(u))
+					}
 				}
-				chart := CopyChartVersion(c)
 				chart.URLs = urls
-				chart.Icon = config.GetPublicURL(s.GetIconPath(c.Icon))
+				if conf.DownloadFiles {
+					chart.Icon = conf.GetPublicURL(s.GetIconPath(c.Icon))
+				} else {
+					chart.Icon = s.GetFullURL(c.Icon)
+				}
+
 				newIndex.Merge(&repo.IndexFile{
 					Entries: map[string]repo.ChartVersions{
 						c.Name: repo.ChartVersions{chart},
@@ -167,86 +148,9 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 	return newIndex, nil
 }
 
-func Index(arr []string, s string) bool {
-	for _, i := range arr {
-		if i == s {
-			return true
-		}
-	}
-	return false
-}
 func CopyChartVersion(c *repo.ChartVersion) *repo.ChartVersion {
 	chart := &repo.ChartVersion{}
 	b, _ := yaml.Marshal(c)
 	yaml.Unmarshal(b, chart)
 	return chart
-}
-
-func Get(u string) ([]byte, error) {
-	log.Println("Start request URL:", u)
-	resp, err := http.Get(u)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-	return body, nil
-}
-
-var (
-	downloadURLs  = []string{}
-	downloadQueue *queue.Queue
-)
-
-func AddDownloadQueue(u, filePath string) {
-
-	if Index(downloadURLs, u) {
-		return
-	}
-	downloadURLs = append(downloadURLs, u)
-
-	type downloadTask struct {
-		url      string
-		filePath string
-	}
-
-	if downloadQueue == nil {
-		downloadQueue = queue.NewQueue(func(val interface{}) {
-
-			task := val.(downloadTask)
-
-			log.Println("Start download URL:", task.url)
-			resp, err := http.Get(task.url)
-			if err != nil {
-				panic(err)
-			}
-			if resp.StatusCode != http.StatusOK {
-				log.Println("Request fail:", resp)
-				return
-			}
-
-			dir := path.Dir(task.filePath)
-			if err := os.MkdirAll(dir, 0755); err != nil {
-				panic(err)
-			}
-
-			file, err := os.OpenFile(task.filePath, os.O_CREATE|os.O_TRUNC|os.O_RDWR, 0755)
-			if err != nil {
-				panic(err)
-			}
-
-			if _, err := io.Copy(file, resp.Body); err != nil {
-				panic(err)
-			}
-
-		}, 20)
-	}
-
-	downloadQueue.Push(downloadTask{
-		url:      u,
-		filePath: filePath,
-	})
 }
