@@ -1,4 +1,5 @@
 rootURL: https://iineva.github.io/helm-chart/mirror
+majorVersions: 2
 source:
 - name: stable
   url: https://kubernetes-charts.storage.googleapis.com

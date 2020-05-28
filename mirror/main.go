@@ -15,6 +15,7 @@ import (
 	"github.com/otium/queue"
 	"helm.sh/helm/v3/pkg/repo"
 	"sigs.k8s.io/yaml"
+	"github.com/Masterminds/semver/v3"
 )
 
 type Source struct {
@@ -24,8 +25,9 @@ type Source struct {
 }
 
 type Config struct {
-	Source  []Source `yaml:source`
-	RootURL string   `yaml:rootURL`
+	Source        []Source `yaml:source`
+	RootURL       string   `yaml:rootURL`
+	MajorVersions uint64   `yaml:majorVersions`
 }
 
 func (c *Config) GetPublicURL(p string) string {
@@ -36,12 +38,12 @@ func (c *Config) GetPublicURL(p string) string {
 
 func (s *Source) GetIconPath(u string) string {
 	u2, _ := url.Parse(u)
-	return path.Join("icons", s.Name+"-"+path.Base(u2.Path))
+	return path.Join("icons", s.Name, path.Base(u2.Path))
 }
 
 func (s *Source) GetURLPath(u string) string {
 	u2, _ := url.Parse(u)
-	return path.Join("charts", s.Name+"-"+path.Base(u2.Path))
+	return path.Join("charts", s.Name, path.Base(u2.Path))
 }
 
 func (s *Source) GetFullURL(u string) string {
@@ -115,7 +117,25 @@ func handleSourceDownload(config *Config, s Source) (*repo.IndexFile, error) {
 	}
 	for k, v := range index.Entries {
 		if Index(s.Charts, k) {
+
+			if len(v) == 0 {
+				continue
+			}
+			maxVersion, err := semver.NewVersion(v[0].Version)
+			if err != nil {
+				panic(err)
+			}
+
 			for _, c := range v {
+
+				curVersion, err := semver.NewVersion(c.Version)
+				if err != nil {
+					panic(err)
+				}
+				if config.MajorVersions > 0 && maxVersion.Major()-curVersion.Major() >= config.MajorVersions {
+					continue
+				}
+
 				if len(c.URLs) == 0 {
 					return nil, errors.New("chart metadata.urls is empty!")
 				}
@@ -202,6 +222,10 @@ func AddDownloadQueue(u, filePath string) {
 			resp, err := http.Get(task.url)
 			if err != nil {
 				panic(err)
+			}
+			if resp.StatusCode != http.StatusOK {
+				log.Println("Request fail:", resp)
+				return
 			}
 
 			dir := path.Dir(task.filePath)
