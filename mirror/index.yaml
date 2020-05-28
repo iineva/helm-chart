@@ -824,7 +824,7 @@ entries:
   docker-registry:
   - apiVersion: v1
     appVersion: 2.7.1
-    created: "2020-05-28T15:59:41.102118656Z"
+    created: "2020-05-28T16:59:50.346717112Z"
     description: A Helm chart for Docker Registry
     digest: 1141ffa34c116385c3afd08b24da89b6d85d0c276f142a150bff03e0419ffa92
     home: https://hub.docker.com/_/registry/
@@ -4486,7 +4486,7 @@ entries:
   grafana:
   - apiVersion: v1
     appVersion: 6.7.3
-    created: "2020-05-28T15:59:41.13264146Z"
+    created: "2020-05-28T16:59:50.380324209Z"
     description: The leading tool for querying and visualizing time series and metrics.
     digest: de2681accdbf7e4ba906e22316de20b091d21feeeff51796b0cbf59569bdc49f
     home: https://grafana.net
@@ -6458,7 +6458,7 @@ entries:
   kubernetes-dashboard:
   - apiVersion: v1
     appVersion: 1.10.1
-    created: "2020-05-28T15:59:41.178030144Z"
+    created: "2020-05-28T16:59:50.422589684Z"
     description: General-purpose web UI for Kubernetes clusters
     digest: 6598a8712099b751af3713a69ecb57cd4e4c99b0692cef4907e214eeb4f314b7
     home: https://github.com/kubernetes/dashboard
@@ -7605,9 +7605,9 @@ entries:
   prometheus:
   - apiVersion: v1
     appVersion: 2.18.1
-    created: "2020-05-28T15:59:41.248769595Z"
+    created: "2020-05-28T16:59:50.491654675Z"
     description: Prometheus is a monitoring system and time series database.
-    digest: d2d0caad9051e31306c22f7fa30076c95e0b2bb9529b419058232d6db3e6d2c1
+    digest: 3cc0d1bd9f51b2a6f70e006344604365d7f9ea3a39d278fe2d74c4745be20b62
     home: https://prometheus.io/
     icon: https://iineva.github.io/helm-chart/mirror/icons/stable/prometheus_logo-cb55bb5c346.png
     maintainers:
@@ -8310,7 +8310,7 @@ entries:
   raw:
   - apiVersion: v1
     appVersion: 0.2.3
-    created: "2020-05-28T16:01:24.838495535Z"
+    created: "2020-05-28T16:31:52.412488544Z"
     description: A place for all the Kubernetes resources which don't already have a home.
     digest: b441b2f3b445f7e352ba56714d05fed0f53adea458dbe01fe1cfe1f16d4092a1
     home: https://github.com/helm/charts/blob/master/incubator/raw
@@ -8386,7 +8386,7 @@ entries:
   rocketchat:
   - apiVersion: v1
     appVersion: 3.2.2
-    created: "2020-05-28T15:59:41.286997818Z"
+    created: "2020-05-28T16:59:50.538086745Z"
     description: Prepare to take off with the ultimate chat platform, experience the next level of team communications
     digest: 1aa51907527383fdf86105b4cb2be9d8fdb7686d06f3259528f7c998e8b29999
     home: https://rocket.chat/
@@ -8994,7 +8994,7 @@ entries:
   traefik:
   - apiVersion: v1
     appVersion: 1.7.20
-    created: "2020-05-28T15:59:41.334490525Z"
+    created: "2020-05-28T16:59:50.589835336Z"
     description: A Traefik based Kubernetes ingress controller with Let's Encrypt support
     digest: 01b932aef0d016f803492a7c5e8d1094f7d5398cbb0203bc9543dc5e457495ab
     home: https://traefik.io/
@@ -13663,4 +13663,4 @@ entries:
     urls:
     - https://iineva.github.io/helm-chart/mirror/charts/stable/traefik-1.1.0-a.tgz
     version: 1.1.0-a
-generated: "2020-05-29T00:35:28.24082+08:00"
+generated: "2020-05-29T01:43:07.348816+08:00"
