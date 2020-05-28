@@ -8,6 +8,7 @@ source:
     - docker-registry
     - rocketchat
     - grafana
+    - prometheus
 - name: gomods
   url: https://athens.blob.core.windows.net/charts
 - name: gitlab
