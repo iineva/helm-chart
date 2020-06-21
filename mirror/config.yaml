@@ -48,4 +48,5 @@ source:
     url: https://grafana.github.io/loki/charts
     charts:
       - loki
+      - loki-stack
       - promtail
