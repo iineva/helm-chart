@@ -6,8 +6,9 @@
 <title>Traefik, The Cloud Native Edge Router | Containous</title>
 <meta name="HandheldFriendly" content="True" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<base href="https://containo.us">
 <link href="https://fonts.googleapis.com/css?family=Rubik:300i,400,400i,500,500i,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/assets/built/css/main.css?v=b0733a39dd" />
+<link rel="stylesheet" type="text/css" href="/assets/built/css/main.css?v=9a7b0e4e3b" />
 <meta name="description" content="Traefik is the leading open-source reverse proxy and load balancer for HTTP and TCP-based applications that is easy, dynamic and full-featured." />
 <link rel="shortcut icon" href="/favicon.png" type="image/png" />
 <link rel="canonical" href="https://containo.us/traefik/" />
@@ -56,14 +57,17 @@
     }
 }
     </script>
-<meta name="generator" content="Ghost 3.17" />
+<meta name="generator" content="Ghost 3.20" />
 <link rel="alternate" type="application/rss+xml" title="Containous: Makes Networking Boring" href="" />
 
-<script type="106c2a8a2acc592e02ff0393-text/javascript">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P6PLVGX');</script>
+<script type="4d565941e02215f42b699930-text/javascript">(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P6PLVGX');</script>
 
 </head>
 <body class="page-template page-traefik">
@@ -71,7 +75,7 @@
 <div class="wrapper-1200">
 <div class="left">
 <div class="announcement__new-tag">New</div>
-<div class="announcement__title"><a class="typeform-survey-links" href="https://traefikambassador.typeform.com/to/Fbi0ws">Participate now in our annual Traefik User Survey →</a></div>
+<div class="announcement__title"><a class="typeform-survey-links" href="https://traefikambassador.typeform.com/to/Fbi0ws" rel="nofollow">Participate now in our annual Traefik User Survey →</a></div>
 </div>
 <div class="right">
 <button class="announcement__close">
@@ -80,7 +84,7 @@
 </div>
 </div>
 </div>
-<script type="106c2a8a2acc592e02ff0393-text/javascript">
+<script type="4d565941e02215f42b699930-text/javascript">
     var announcement_banner = document.querySelector('.announcement');
     var isAnnouncementVisible = localStorage.getItem('isAnnouncementVisible');
     if(isAnnouncementVisible === "true" || isAnnouncementVisible === null){
@@ -100,7 +104,7 @@
 <div class="left">
 <div class="site-header__main">
 <a href="https://containo.us">
-<img class="site-header__logo" alt="site logo" src="/assets/img/containous-logo-black.svg?v=b0733a39dd">
+<img class="site-header__logo" alt="Load Balancer + Kubernetes Ingress + Service Mesh with Traefik and Maesh" src="/assets/img/containous-logo-black.svg?v=9a7b0e4e3b">
 </a>
 </div>
 <nav class="site-header__nav">
@@ -113,35 +117,35 @@
 <div class="nav-dropdown-menu-wrapper">
 <div class="dm-header">Products</div>
 <div class="dm-items">
-<a href="https://containo.us/traefikee/" class="dm-item dm-item--traefikee">
+<div class="dm-item dm-item--traefikee">
 <div class="dmi-image">
-<img src="/assets/img/traefik-ee-logo-black.svg?v=b0733a39dd" alt="traefikee">
+<img src="/assets/img/traefik-ee-logo-black.svg?v=9a7b0e4e3b" alt="traefikee">
 </div>
-<div class="dmi-details">
+<a href="https://containo.us/traefikee/" class="dmi-details">
 <div class="dmi-title">Traefik Enterprise Edition</div>
 <div class="dmi-description">Ensure high availability, scalability, and security of your
 microservices</div>
-</div>
 </a>
-<a href="https://containo.us/traefik/" class="dm-item">
-<div class="dmi-image">
-<img src="/assets/img/traefik-logo-black.svg?v=b0733a39dd" alt="traefik">
 </div>
-<div class="dmi-details">
+<div class="dm-item">
+<div class="dmi-image">
+<img src="/assets/img/traefik-logo-black.svg?v=9a7b0e4e3b" alt="traefik">
+</div>
+<a href="https://containo.us/traefik/" class="dmi-details">
 <div class="dmi-title">Traefik</div>
 <div class="dmi-description">Expose, Secure and Monitor your modern applications</div>
-</div>
 </a>
-<a href="https://containo.us/maesh/" class="dm-item">
-<div class="dmi-image">
-<img src="/assets/img/maesh/maesh-logo.svg?v=b0733a39dd" alt="maesh">
 </div>
-<div class="dmi-details">
+<div class="dm-item">
+<div class="dmi-image">
+<img src="/assets/img/maesh/maesh-logo.svg?v=9a7b0e4e3b" alt="maesh">
+</div>
+<a href="https://containo.us/maesh/" class="dmi-details">
 <div class="dmi-title">Maesh</div>
 <div class="dmi-description">Route and Monitor communications inside your Kubernetes cluster
 </div>
-</div>
 </a>
+</div>
 </div>
 </div>
 </div>
@@ -155,24 +159,24 @@ microservices</div>
 <div class="nav-dropdown-menu-wrapper">
 <div class="dm-header">Solutions</div>
 <div class="dm-items">
-<a href="https://containo.us/solutions/kubernetes-ingress/" class="dm-item">
+<div class="dm-item">
 <div class="dmi-image">
-<img src="/assets/img/header/solutions/kubernetes-icon.svg?v=b0733a39dd" alt="Kubernetes Ingress">
+<img src="/assets/img/header/solutions/kubernetes-icon.svg?v=9a7b0e4e3b" alt="Kubernetes Ingress">
 </div>
-<div class="dmi-details">
+<a href="https://containo.us/solutions/kubernetes-ingress/" class="dmi-details">
 <div class="dmi-title">Kubernetes Ingress</div>
 <div class="dmi-description">A centralized routing solution for your Kubernetes deployment</div>
-</div>
 </a>
-<a href="https://containo.us/maesh/" class="dm-item">
-<div class="dmi-image">
-<img src="/assets/img/header/solutions/hierarchy-icon.svg?v=b0733a39dd" alt="Service Mesh">
 </div>
-<div class="dmi-details">
+<div class="dm-item">
+<div class="dmi-image">
+<img src="/assets/img/header/solutions/hierarchy-icon.svg?v=9a7b0e4e3b" alt="Service Mesh">
+</div>
+<a href="https://containo.us/maesh/" class="dmi-details">
 <div class="dmi-title">Service Mesh</div>
 <div class="dmi-description">Monitor and route your internal communications easily</div>
-</div>
 </a>
+</div>
 </div>
 </div>
 </div>
@@ -190,26 +194,26 @@ microservices</div>
 <a href="https://containo.us/blog/" class="dm-item">Blog</a>
 <a href="https://containo.us/resources/" class="dm-item">Resource Library</a>
 <a href="https://containo.us/success-stories/" class="dm-item">Success Stories</a>
-<a href="https://containo.us/events/" class="dm-item">Events</a>
 <a href="https://docs.containo.us/" class="dm-item">Docs</a>
-<a href="https://community.containo.us/" class="dm-item">Community</a>
+<a href="https://containo.us/community/" class="dm-item">Community</a>
+<a href="https://containo.us/events/" class="dm-item">Events</a>
 </div>
 </div>
 <div class="dm-right dm-previews">
 <div class="dm-preview dm-preview--blog">
-<a href="/blog/five-ways-to-control-access-to-your-applications-on-kubernetes/" class="dm-preview__feature-image">
-<img srcset="/content/images/size/w300/2020/05/5-ways-to-control-access-to-your-applications-on-Kubernetes-1.jpg 300w,
-											/content/images/size/w600/2020/05/5-ways-to-control-access-to-your-applications-on-Kubernetes-1.jpg 600w,
-											/content/images/size/w1000/2020/05/5-ways-to-control-access-to-your-applications-on-Kubernetes-1.jpg 1000w,
-											/content/images/size/w2000/2020/05/5-ways-to-control-access-to-your-applications-on-Kubernetes-1.jpg 2000w" sizes="700px" src="/content/images/size/w600/2020/05/5-ways-to-control-access-to-your-applications-on-Kubernetes-1.jpg" alt="Five ways to control access to your applications on Kubernetes" />
+<a href="https://containo.us/blog/securing-your-kubernetes-environment-against-external-traffic-threats/" class="dm-preview__feature-image">
+<img srcset="/content/images/size/w300/2020/06/Securing-your-Kubernetes-environment-against-external-traffic-threats-1.jpg 300w,
+											/content/images/size/w600/2020/06/Securing-your-Kubernetes-environment-against-external-traffic-threats-1.jpg 600w,
+											/content/images/size/w1000/2020/06/Securing-your-Kubernetes-environment-against-external-traffic-threats-1.jpg 1000w,
+											/content/images/size/w2000/2020/06/Securing-your-Kubernetes-environment-against-external-traffic-threats-1.jpg 2000w" sizes="700px" src="/content/images/size/w600/2020/06/Securing-your-Kubernetes-environment-against-external-traffic-threats-1.jpg" alt="Securing your Kubernetes environment against external traffic threats" />
 </a>
 <div class="dm-preview__content">
-<a href="https://containo.us/tag/blog/" class="dm-preview__tag">Blog</a>
-<a class="dm-preview__title" href="/blog/five-ways-to-control-access-to-your-applications-on-kubernetes/">Five ways to control access to your applications on Kubernetes</a>
-<a class="arrow-link" href="/blog/five-ways-to-control-access-to-your-applications-on-kubernetes/">
+<div class="dm-preview__tag">Blog</div>
+<a class="dm-preview__title" href="https://containo.us/blog/securing-your-kubernetes-environment-against-external-traffic-threats/">Securing your Kubernetes environment against external traffic threats</a>
+<div class="arrow-link">
 <span class="text">Read more</span>
 <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-</a>
+</div>
 </div>
 </div>
 </div>
@@ -237,7 +241,7 @@ microservices</div>
 </div>
 <div class="dm-right">
 <p>Interested in joining Containous?</p>
-<a class="btn-type-1" href="https://containo.us/careers/?fromNav=true">View Open Positions</a>
+<a class="btn-type-1" href="https://containo.us/careers/#open-positions">View Open Positions</a>
 </div>
 </div>
 </div>
@@ -246,7 +250,7 @@ microservices</div>
 </div>
 <div class="right">
 <div class="site-header__demo-button">
-<a class="btn-type-2" href="https://info.containo.us/request-demo-traefikee">Get a demo</a>
+<button class="btn-type-2" onclick="if (!window.__cfRLUnblockHandlers) return false; window.location.href='https://info.containo.us/request-demo-traefikee'" data-cf-modified-4d565941e02215f42b699930-="">Get a demo</button>
 </div>
 </div>
 <div class="drawer">
@@ -273,9 +277,11 @@ Traefik 2.2 now available – <strong>Upgrade Now!</strong>
 </a>
 </div>
 <div class="traefik-intro__logo">
-<img src="/assets/img/traefik-logo.svg?v=b0733a39dd" alt="traefik logo">
+<h1>
+<img src="/assets/img/traefik-logo.svg?v=9a7b0e4e3b" alt="Cloud Native Edge Router">
+</h1>
 </div>
-<h1>The Cloud Native Edge Router</h1>
+<h2>The Cloud Native Edge Router</h2>
 <h3>Simplify networking complexity while designing, deploying, and running applications.</h3>
 <div class="traefik-intro__get-started">
 <a href="https://docs.traefik.io/?__hstc=265350736.1e2d80ddb5cee19039f2712a5fa8575c.1562169862349.1573610559475.1573785729176.88&__hssc=265350736.2.1573785729176&__hsfp=4145327793#the-traefik-quickstart-using-docker">Get
@@ -294,7 +300,7 @@ Started</a>
 <div class="items">
 <div class="item">
 <div class="icon">
-<img src="/assets/img/traefik/features/downloads-icon.svg?v=b0733a39dd" />
+<img src="/assets/img/traefik/features/downloads-icon.svg?v=9a7b0e4e3b" />
 </div>
 <div class="content">
 <div class="title">1 Billion+</div>
@@ -311,7 +317,7 @@ Started</a>
 </div>
 <div class="item">
 <div class="icon">
-<img src="/assets/img/traefik/features/contributors-icon.svg?v=b0733a39dd" />
+<img src="/assets/img/traefik/features/contributors-icon.svg?v=9a7b0e4e3b" />
 </div>
 <div class="content">
 <div class="title">400+</div>
@@ -323,48 +329,49 @@ Started</a>
 <div class="traefik-details__features">
 <hr class="hr-tiny">
 <h2>The modern reverse proxy your cloud was waiting for</h2>
-<p>Traefik is the leading open source reverse proxy and load balancer for HTTP and TCP-based applications
+<p>Traefik is the leading <strong>open source reverse proxy</strong> and <strong>load balancer</strong> for
+HTTP and TCP-based applications
 that is easy, dynamic, automatic, fast, full-featured, production proven, provides metrics, and
 integrates with every major cluster technology... No wonder it's so popular!</p>
 <div class="features">
 <div class="item">
-<img src="/assets/img/traefik/features/features/auto-discovery-icon.svg?v=b0733a39dd" alt="Auto Discovery" />
-<h4>Auto Discovery</h4>
+<img src="/assets/img/traefik/features/features/auto-discovery-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with auto discovery" />
+<h3>Auto Discovery</h3>
 <p>Kubernetes, Mesos, Docker Swarm, Key Value Stores, Rancher, ...</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/tracing-icon.svg?v=b0733a39dd" alt="Tracing" />
-<h4>Tracing</h4>
+<img src="/assets/img/traefik/features/features/tracing-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with tracing and metrics" />
+<h3>Tracing</h3>
 <p>Open Tracing, Jaeger &amp; Zipkin.</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/metrics-icon.svg?v=b0733a39dd" alt="Metrics" />
-<h4>Metrics</h4>
+<img src="/assets/img/traefik/features/features/metrics-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with tracing and metrics" />
+<h3>Metrics</h3>
 <p>Prometheus, Data Dog, StatsD, InfluxDB, ...</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/https-icon.svg?v=b0733a39dd" alt="HTTPS" />
-<h4>HTTPS</h4>
+<img src="/assets/img/traefik/features/features/https-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with HTTPS support" />
+<h3>HTTPS</h3>
 <p>Let's Encrypt, ACME, custom certificates, ...</p>
 </div>
 <div class="item">
- <img src="/assets/img/traefik/features/features/http-support-icon.svg?v=b0733a39dd" alt="HTTP and TCP Support" />
-<h4>HTTP and TCP Support</h4>
+<img src="/assets/img/traefik/features/features/http-support-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with HTTP and TCP compatible support" />
+<h3>HTTP and TCP Support</h3>
 <p>Route requests to HTTP and TCP based applications.</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/middlewares-icon.svg?v=b0733a39dd" alt="Middlewares" />
-<h4>Middlewares</h4>
+<img src="/assets/img/traefik/features/features/middlewares-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer with middlewares support" />
+<h3>Middlewares</h3>
 <p>Fully customize your routes.</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/canary-deployments-icon.svg?v=b0733a39dd" alt="Canary Deployments" />
-<h4>Canary Deployments</h4>
+<img src="/assets/img/traefik/features/features/canary-deployments-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer for canary deployments" />
+<h3>Canary Deployments</h3>
 <p>Rolling out releases to a subset of users.</p>
 </div>
 <div class="item">
-<img src="/assets/img/traefik/features/features/mirroring-icon.svg?v=b0733a39dd" alt="Mirroring" />
-<h4>Mirroring</h4>
+<img src="/assets/img/traefik/features/features/mirroring-icon.svg?v=9a7b0e4e3b" alt="Reverse Proxy & Load Balancer for mirroring" />
+<h3>Mirroring</h3>
 <p>Fork incoming requests and send it to different services.</p>
 </div>
 </div>
@@ -387,7 +394,7 @@ integrates with every major cluster technology... No wonder it's so popular!</p>
 <section class="traefik-diagram">
 <div class="wrapper-1200">
 <hr class="hr-tiny">
-<h2>Architecture Overview</h2>
+<h2>Traefik Architecture Overview</h2>
 </div>
 <div class="diagram">
 <div class="traefik-diagram-svg">
@@ -460,42 +467,42 @@ integrates with every major cluster technology... No wonder it's so popular!</p>
 <h2>Companies that trust Traefik</h2>
 <div class="customers">
 <div class="customer">
-<img src="/assets/img/traefik/customers/mozilla.svg?v=b0733a39dd" alt="mozilla" />
+<img src="/assets/img/traefik/customers/mozilla.svg?v=9a7b0e4e3b" alt="mozilla" />
 </div>
 <div class="customer">
-<img srcset="/assets/img/traefik/customers/ebay/ebay-logo.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/customers/ebay/ebay-logo@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/customers/ebay/ebay-logo@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/customers/ebay/ebay-logo.jpg?v=b0733a39dd" alt="ebay classifieds" />
+<img srcset="/assets/img/traefik/customers/ebay/ebay-logo.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/customers/ebay/ebay-logo@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/customers/ebay/ebay-logo@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/customers/ebay/ebay-logo.jpg?v=9a7b0e4e3b" alt="ebay classifieds" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/cond-nast.svg?v=b0733a39dd" alt="condé nast" />
+<img src="/assets/img/traefik/customers/cond-nast.svg?v=9a7b0e4e3b" alt="condé nast" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/expedia.svg?v=b0733a39dd" alt="expedia" />
+<img src="/assets/img/traefik/customers/expedia.svg?v=9a7b0e4e3b" alt="expedia" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/bloomberg.svg?v=b0733a39dd" alt="bloomberg" />
+<img src="/assets/img/traefik/customers/mailchimp.svg?v=9a7b0e4e3b" alt="mailchimp" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/apple.svg?v=b0733a39dd" alt="apple" />
+<img src="/assets/img/traefik/customers/apple.svg?v=9a7b0e4e3b" alt="apple" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/bose.svg?v=b0733a39dd" alt="bose" />
+<img src="/assets/img/traefik/customers/bose.svg?v=9a7b0e4e3b" alt="bose" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/sainsbury.svg?v=b0733a39dd" alt="sainsburys" />
+<img src="/assets/img/traefik/customers/sainsbury.svg?v=9a7b0e4e3b" alt="sainsburys" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/credit-suisse.svg?v=b0733a39dd" alt="credit suisse" />
+<img src="/assets/img/traefik/customers/credit-suisse.svg?v=9a7b0e4e3b" alt="credit suisse" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/talend.svg?v=b0733a39dd" alt="talend" />
+<img src="/assets/img/traefik/customers/talend.svg?v=9a7b0e4e3b" alt="talend" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/NewRelic.svg?v=b0733a39dd" alt="New Relic" />
+<img src="/assets/img/traefik/customers/NewRelic.svg?v=9a7b0e4e3b" alt="New Relic" />
 </div>
 <div class="customer">
-<img src="/assets/img/traefik/customers/ovh-cloud.svg?v=b0733a39dd" alt="ovh" />
+<img src="/assets/img/traefik/customers/ovh-cloud.svg?v=9a7b0e4e3b" alt="ovh" />
 </div>
 </div>
 </div>
@@ -503,7 +510,7 @@ integrates with every major cluster technology... No wonder it's so popular!</p>
 <section class="traefik-installation">
 <div class="wrapper-1200">
 <hr class="hr-tiny">
-<h2>Easy To Get Started</h2>
+<span class="h2-style">Easy To Get Started</span>
 <div class="guide">
 <div class="guide__nav">
 <button class="guide__item guide__item--download active">
@@ -525,7 +532,7 @@ integrates with every major cluster technology... No wonder it's so popular!</p>
 </div>
 <div class="guide__main">
 <section class="guide__section--download active">
-<h4>Download</h4>
+<span class="guide__section-title">Download</span>
 <p>The simple way: grab the latest binary from the <a href="https://github.com/containous/traefik/releases">releases page</a> and just run it with
 <a href="https://raw.githubusercontent.com/containous/traefik/master/traefik.sample.toml">the
 sample configuration file</a> :</p>
@@ -534,24 +541,24 @@ sample configuration file</a> :</p>
 </div>
 </section>
 <section class="guide__section--docker">
-<h4>Docker Image</h4>
+<span class="guide__section-title">Docker Image</span>
 <p>Using the <a href="https://hub.docker.com/r/_/traefik/">official docker image:</a></p>
 <div class="code">
 docker run -d -p 8080:8080 -p 80:80 -v $PWD/traefik.toml:/etc/traefik/traefik.toml traefik
 </div>
 </section>
 <section class="guide__section--helm">
-<h4>Helm</h4>
-<p>Install using <a href="https://helm.sh/">Helm</a></p>
+<span class="guide__section-title">Helm</span>
+<p>Install using <a href="https://helm.sh/" rel="nofollow">Helm</a></p>
 <div class="code">
 helm install stable/traefik
 </div>
 </section>
 <section class="guide__section--source">
-<h4>From Source</h4>
+<span class="guide__section-title">From Source</span>
 <p>Clone the official repository from github:</p>
 <div class="code">
-git clone <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ef9f7eadef9f7eaf6ebfcb0fdf1f3">[email&#160;protected]</a>:containous/traefik.git
+git clone <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="781f110c381f110c100d1a561b1715">[email&#160;protected]</a>:containous/traefik.git
 </div>
 <p>And then follow the <a href="https://github.com/containous/traefik/blob/master/CONTRIBUTING.md#build-tr%C3%A6fik">how
 to compile instructions</a> from the contributing documentation.</p>
@@ -566,40 +573,40 @@ to compile instructions</a> from the contributing documentation.</p>
 <h2>Traefik natively integrates with...</h2>
 <div class="integrations">
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/kubernetes/kubernetes-logo.png?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/kubernetes/kubernetes-logo@2x.png?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/kubernetes/kubernetes-logo@3x.png?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/kubernetes/kubernetes-logo.png?v=b0733a39dd" alt="kubernetes" />
+<img srcset="/assets/img/traefik/integrations/kubernetes/kubernetes-logo.png?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/kubernetes/kubernetes-logo@2x.png?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/kubernetes/kubernetes-logo@3x.png?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/kubernetes/kubernetes-logo.png?v=9a7b0e4e3b" alt="kubernetes" />
 </div>
 <div class="integration">
-<img src="/assets/img/traefik/integrations/docker.svg?v=b0733a39dd" alt="docker" />
+<img src="/assets/img/traefik/integrations/docker.svg?v=9a7b0e4e3b" alt="docker" />
 </div>
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/docker-swarm/docker-swarm.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/docker-swarm/docker-swarm@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/docker-swarm/docker-swarm@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/docker-swarm/docker-swarm.jpg?v=b0733a39dd" alt="docker swarm" />
+<img srcset="/assets/img/traefik/integrations/docker-swarm/docker-swarm.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/docker-swarm/docker-swarm@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/docker-swarm/docker-swarm@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/docker-swarm/docker-swarm.jpg?v=9a7b0e4e3b" alt="docker swarm" />
 </div>
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/mesos/mesos.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/mesos/mesos@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/mesos/mesos@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/mesos/mesos.jpg?v=b0733a39dd" alt="mesos" />
+<img srcset="/assets/img/traefik/integrations/mesos/mesos.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/mesos/mesos@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/mesos/mesos@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/mesos/mesos.jpg?v=9a7b0e4e3b" alt="mesos" />
 </div>
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/marathon/marathon.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/marathon/marathon@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/marathon/marathon@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/marathon/marathon.jpg?v=b0733a39dd" alt="marathon" />
+<img srcset="/assets/img/traefik/integrations/marathon/marathon.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/marathon/marathon@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/marathon/marathon@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/marathon/marathon.jpg?v=9a7b0e4e3b" alt="marathon" />
 </div>
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/amazon-ecs/amazon-ecs.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/amazon-ecs/amazon-ecs@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/amazon-ecs/amazon-ecs@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/amazon-ecs/amazon-ecs.jpg?v=b0733a39dd" alt="amazon ecs" />
+<img srcset="/assets/img/traefik/integrations/amazon-ecs/amazon-ecs.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/amazon-ecs/amazon-ecs@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/amazon-ecs/amazon-ecs@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/amazon-ecs/amazon-ecs.jpg?v=9a7b0e4e3b" alt="amazon ecs" />
 </div>
 <div class="integration integration--azure">
-<img src="/assets/img/traefik/integrations/microsoft-azure.svg?v=b0733a39dd" alt="microsoft azure" />
+<img src="/assets/img/traefik/integrations/microsoft-azure.svg?v=9a7b0e4e3b" alt="microsoft azure" />
 </div>
 <div class="integration">
-<img srcset="/assets/img/traefik/integrations/rancher/rancher.jpg?v=b0733a39dd 1x,
-                            /assets/img/traefik/integrations/rancher/rancher@2x.jpg?v=b0733a39dd 2x,
-                            /assets/img/traefik/integrations/rancher/rancher@3x.jpg?v=b0733a39dd 3x" src="/assets/img/traefik/integrations/rancher/rancher.jpg?v=b0733a39dd" alt="rancher" />
+<img srcset="/assets/img/traefik/integrations/rancher/rancher.jpg?v=9a7b0e4e3b 1x,
+                            /assets/img/traefik/integrations/rancher/rancher@2x.jpg?v=9a7b0e4e3b 2x,
+                            /assets/img/traefik/integrations/rancher/rancher@3x.jpg?v=9a7b0e4e3b 3x" src="/assets/img/traefik/integrations/rancher/rancher.jpg?v=9a7b0e4e3b" alt="rancher" />
 </div>
 </div>
 </div>
@@ -607,23 +614,24 @@ to compile instructions</a> from the contributing documentation.</p>
 <section class="traefik-sales">
 <div class="wrapper-1200">
 <h2>Need Production-Grade Deployment?</h2>
-<div class="cta-links-with-icons">
-<a href="https://containo.us/traefikee/">
-<div class="link-text">
-<span class="text">Discover TraefikEE &rarr;</span>
+<div class="cta-link-cards">
+<div class="cta-link-card">
+<div class="link">
+<a href="https://containo.us/traefikee/">Discover TraefikEE &rarr;</a>
 </div>
-<div class="link-img">
-<img src="/assets/img/traefik/sales/traefik-ee-icon.svg?v=b0733a39dd" />
+<div class="image">
+<img src="/assets/img/traefik/sales/traefik-ee-icon.svg?v=9a7b0e4e3b" />
 </div>
-</a>
-<a href="https://info.containo.us/contact-sales">
-<div class="link-text">
-<span class="text">Contact sales &rarr;</span>
 </div>
-<div class="link-img">
-<img src="/assets/img/traefik/sales/envelope-icon.svg?v=b0733a39dd" />
+<div class="cta-link-card cta-link-card--gradient-2">
+<div class="link">
+<button onclick="if (!window.__cfRLUnblockHandlers) return false; window.location.href='https://info.containo.us/contact-sales'" data-cf-modified-4d565941e02215f42b699930-="">Contact sales
+&rarr;</button>
 </div>
-</a>
+<div class="image">
+<img src="/assets/img/traefik/sales/envelope-icon.svg?v=9a7b0e4e3b" />
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -632,19 +640,19 @@ to compile instructions</a> from the contributing documentation.</p>
 <div class="top">
 <div class="footer__logo-email">
 <div class="site-footer__logo">
-<img src="/assets/img/containous-logo-white.svg?v=b0733a39dd" alt="logo" />
+<img src="/assets/img/containous-logo-white.svg?v=9a7b0e4e3b" alt="Load Balancer + Kubernetes Ingress + Service Mesh with Traefik and Maesh" />
 </div>
 <div class="site-footer__subscribe">
 <form class="site-footer__subscribe-form">
 <label>Subscribe to our newsletter</label>
 <div class="form-field-wrapper">
-<input type="email" name="email" placeholder="youremail@example.com" />
+<input type="email" name="email" placeholder="Your email" />
 <button type="submit">
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg> </button>
 </div>
 </form>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script charset="utf-8" type="106c2a8a2acc592e02ff0393-text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
-<script type="106c2a8a2acc592e02ff0393-text/javascript">
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script charset="utf-8" type="4d565941e02215f42b699930-text/javascript" src="//js.hsforms.net/forms/v2.js"></script>
+<script type="4d565941e02215f42b699930-text/javascript">
                         hbspt.forms.create({
                             portalId: "5814022",
                             formId: "195f7321-e7f5-4fe0-9c3e-49466380956f"
@@ -653,26 +661,26 @@ to compile instructions</a> from the contributing documentation.</p>
 </div>
 </div>
 <div class="footer__products footer__column">
-<h5>Products</h5>
+<span class="footer__column-title">Products</span>
 <a href="https://containo.us/traefik/">Traefik</a>
 <a href="https://containo.us/traefikee/">TraefikEE</a>
 <a href="https://containo.us/maesh/">Maesh</a>
-<a href="https://info.containo.us/request-demo-traefikee">Request a Demo</a>
+<a href="https://info.containo.us/request-demo-traefikee" rel="nofollow">Request a Demo</a>
 <a href="https://containo.us/pricing/">Pricing</a>
-<a href="https://support.containo.us">Support Center</a>
+<a href="https://support.containo.us" rel="nofollow">Support Center</a>
 </div>
 <div class="footer__learn footer__column">
-<h5>Learn</h5>
+<span class="footer__column-title">Learn</span>
 <a href="https://containo.us/blog/">Blog</a>
 <a href="https://containo.us/resources/">Resource Library</a>
 <a href="https://containo.us/success-stories/">Success Stories</a>
-<a href="https://containo.us/events/">Events</a>
 <a href="https://docs.containo.us/">Docs</a>
-<a href="https://community.containo.us/">Community</a>
-<a class="typeform-survey-links" id="footer-typeform-popup-link" href="https://traefikambassador.typeform.com/to/Fbi0ws">Survey</a>
+<a href="https://containo.us/community/">Community</a>
+<a href="https://containo.us/events/">Events</a>
+<a class="typeform-survey-links" id="footer-typeform-popup-link" href="https://traefikambassador.typeform.com/to/Fbi0ws" rel="nofollow">Survey</a>
 </div>
 <div class="footer__company footer__column">
-<h5>Company</h5>
+<span class="footer__column-title">Company</span>
 <a href="https://containo.us/about-us/">About</a>
 <a href="https://containo.us/partners/">Partners</a>
 <a href="https://containo.us/careers/">Careers</a>
@@ -680,12 +688,12 @@ to compile instructions</a> from the contributing documentation.</p>
 <a href="https://containo.us/contact-us/">Contact Us</a>
 </div>
 <div class="footer__connect footer__column">
-<h5>Connect</h5>
+<span class="footer__column-title">Connect</span>
 <a href="https://community.containo.us/">Forum</a>
-<a href="https://github.com/containous/traefik/">Github</a>
-<a href="https://twitter.com/containous">Twitter</a>
-<a href="https://www.linkedin.com/company/containous/">LinkedIn</a>
-<a href="https://www.youtube.com/channel/UCVRyfsfkok4trq6u7RJsY_A">Youtube</a>
+<a href="https://github.com/containous/traefik/" rel="nofollow">Github</a>
+<a href="https://twitter.com/containous" rel="nofollow">Twitter</a>
+<a href="https://www.linkedin.com/company/containous/" rel="nofollow">LinkedIn</a>
+<a href="https://www.youtube.com/channel/UCVRyfsfkok4trq6u7RJsY_A" rel="nofollow">Youtube</a>
 </div>
 </div>
 <div class="bottom">
@@ -727,9 +735,9 @@ to compile instructions</a> from the contributing documentation.</p>
 <a href="https://containo.us/blog/">Blog</a>
 <a href="https://containo.us/resources/">Resource Library</a>
 <a href="https://containo.us/success-stories/">Success Stories</a>
-<a href="https://containo.us/events/">Events</a>
 <a href="https://docs.containo.us/">Docs</a>
-<a href="https://community.containo.us/">Community</a>
+<a href="https://containo.us/community/">Community</a>
+<a href="https://containo.us/events/">Events</a>
 </div>
 </div>
 <div class="menu-item-wrapper">
@@ -752,16 +760,18 @@ to compile instructions</a> from the contributing documentation.</p>
 <div class="cookie-banner">
 <div class="wrapper-1200">
 <p>
-Containous uses cookies to improve your experience. By continuing to browse the site you are agreeing to our use of cookies. Find out more in the <a href="/legal/privacy-and-cookie-policy/">Cookie Policy</a>.
+Containous uses cookies to improve your experience. By continuing to browse the site you are agreeing to
+our use of cookies. Find out more in the <a href="/legal/privacy-and-cookie-policy/">Cookie Policy</a>.
 </p>
 <button class="btn-type-1">OK</button>
 </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="106c2a8a2acc592e02ff0393-text/javascript">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="4d565941e02215f42b699930-text/javascript">
     </script>
-<script src="/assets/built/js/main.js?v=b0733a39dd" type="106c2a8a2acc592e02ff0393-text/javascript"></script>
-<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" type="106c2a8a2acc592e02ff0393-text/javascript"></script>
-<script type="106c2a8a2acc592e02ff0393-text/javascript">
+<script src="https://embed.typeform.com/embed.js" type="4d565941e02215f42b699930-text/javascript"></script>
+<script src="/assets/built/js/main.js?v=9a7b0e4e3b" type="4d565941e02215f42b699930-text/javascript"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js" type="4d565941e02215f42b699930-text/javascript"></script>
+<script type="4d565941e02215f42b699930-text/javascript">
     $(document).ready(function () {
         // after the traefikee dashboard screenshot has loaded completely, make it visible.
         $('.traefik-intro__screenshot').imagesLoaded(function () {
@@ -800,13 +810,12 @@ Containous uses cookies to improve your experience. By continuing to browse the 
     });
 </script>
 
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PLVGX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P6PLVGX" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
 
-<script src="https://embed.typeform.com/embed.js" type="106c2a8a2acc592e02ff0393-text/javascript"></script>
-<script type="106c2a8a2acc592e02ff0393-text/javascript">
+<script type="4d565941e02215f42b699930-text/javascript">
         var survey_popup;
-        $(document).ready(function(){
+        $(document).ready(function () {
             survey_popup = window.typeformEmbed.makePopup('https://traefikambassador.typeform.com/to/Fbi0ws', {
                 hideHeaders: true,
                 hideFooter: true
@@ -815,12 +824,12 @@ Containous uses cookies to improve your experience. By continuing to browse the 
 
         let survey_links = document.getElementsByClassName('typeform-survey-links');
 
-        for (let i=0; i < survey_links.length; i++) {
-            survey_links[i].addEventListener('click', function(e) {
+        for (let i = 0; i < survey_links.length; i++) {
+            survey_links[i].addEventListener('click', function (e) {
                 e.preventDefault();
                 survey_popup.open();
             });
         }
     </script>
-<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="106c2a8a2acc592e02ff0393-|49" defer=""></script></body>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/7089c43e/cloudflare-static/rocket-loader.min.js" data-cf-settings="4d565941e02215f42b699930-|49" defer=""></script></body>
 </html>

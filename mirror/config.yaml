@@ -44,3 +44,8 @@ source:
       - filebeat
       - logstash
       - kibana
+  - name: loki
+    url: https://grafana.github.io/loki/charts
+    charts:
+      - loki
+      - promtail
