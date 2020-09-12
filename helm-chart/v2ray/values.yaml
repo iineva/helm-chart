@@ -8,6 +8,16 @@ image:
   repository: ineva/v2ray
   pullPolicy: IfNotPresent
 
+trojan:
+  image:
+    repository: p4gefau1t/trojan-go
+    tag: v0.8.2
+  client:
+    host: chart-example.local
+    port: 443
+    password: password
+    localPort: 1080
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""

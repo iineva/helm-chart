@@ -69,6 +69,27 @@ spec:
             - name: TZ
               value: {{ .Values.timezone }}
           {{- end }}
+        - name: {{ .Chart.Name }}-trojan
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.trojan.image.repository }}:{{ .Values.trojan.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.timezone }}
+          env:
+            - name: TZ
+              value: {{ .Values.timezone }}
+          {{- end }}
+          command:
+          - trojan-go
+          - -client
+          - -remote
+          - {{ .Values.trojan.client.host }}:{{ .Values.trojan.client.port }}
+          - -local
+          - 127.0.0.1:{{ .Values.trojan.client.localPort }}
+          - -password
+          - {{ .Values.trojan.client.password }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
