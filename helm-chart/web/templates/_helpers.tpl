@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "raw.name" -}}
+{{- define "web.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "raw.fullname" -}}
+{{- define "web.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "raw.chart" -}}
+{{- define "web.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "raw.labels" -}}
-helm.sh/chart: {{ include "raw.chart" . }}
-{{ include "raw.selectorLabels" . }}
+{{- define "web.labels" -}}
+helm.sh/chart: {{ include "web.chart" . }}
+{{ include "web.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "raw.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "raw.name" . }}
+{{- define "web.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "web.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "raw.serviceAccountName" -}}
+{{- define "web.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "raw.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "web.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
