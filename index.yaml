@@ -3,9 +3,9 @@ entries:
   activemq:
   - apiVersion: v2
     appVersion: 5.15.6-alpine
-    created: "2021-06-05T16:38:26.53159+08:00"
+    created: "2021-06-05T16:47:20.440768+08:00"
     description: A Helm chart for Kubernetes
-    digest: cfca65a232d54f4a9cbabe4b7a212f53296f0aa9a66eab85df98c1e11af4c47a
+    digest: 084bae87899aa6414a1a92bb45fccd8cd4772163d8b9ce80dc58ecbcc18ff5d9
     name: activemq
     type: application
     urls:
@@ -14,7 +14,7 @@ entries:
   alibaba-cloud-log:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2021-06-05T16:38:26.532564+08:00"
+    created: "2021-06-05T16:47:20.442008+08:00"
     description: alibaba cloud log service for kubernetes. Include controller and logtail daemonset
     digest: 743fbfb5c21a9ffda5b17242f2e43d9f7ead431dff489ef8192ae847c51cdc8c
     name: alibaba-cloud-log
@@ -24,9 +24,9 @@ entries:
   api-server:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.534082+08:00"
+    created: "2021-06-05T16:47:20.443411+08:00"
     description: A Helm chart for Kubernetes
-    digest: 208100021baaade111b3e38e50024435ea236f6505381935e764703b1150afef
+    digest: b69183c607b85b8094497c848a3baf8c02ab40ad6cab413d5e4756e399c60e36
     name: api-server
     type: application
     urls:
@@ -34,7 +34,7 @@ entries:
     version: 1.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.533584+08:00"
+    created: "2021-06-05T16:47:20.442942+08:00"
     description: A Helm chart for Kubernetes
     digest: d877f7bcb16fe134af354793f83d9c197c393c823e8a3b54e497c41b91de0bb7
     name: api-server
@@ -45,9 +45,9 @@ entries:
   athens-proxy:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.534706+08:00"
+    created: "2021-06-05T16:47:20.444147+08:00"
     description: A Helm chart for Kubernetes
-    digest: 1842e46d0481e743db3b4b68c079967b90847b58620135deda653da3622465b3
+    digest: 4de055b1ed50d192d96cb55667e21035932233e1b8133216b70a3330fbe8847a
     name: athens-proxy
     type: application
     urls:
@@ -56,9 +56,9 @@ entries:
   bitwarden:
   - apiVersion: v2
     appVersion: 1.13.0
-    created: "2021-06-05T16:38:26.535274+08:00"
+    created: "2021-06-05T16:47:20.444759+08:00"
     description: A Helm chart for Kubernetes
-    digest: 431950ddec6d48254ad06f2ea84d040afba70db4639d8349a8ccbaf101f23c2b
+    digest: 46c6e4e9378f63660f468fc17ae26e9761b5ca6714ec4f05099ef6cb62a70bbb
     name: bitwarden
     type: application
     urls:
@@ -67,16 +67,16 @@ entries:
   cert-manager-webhook-dnspod:
   - apiVersion: v1
     appVersion: 0.2.0
-    created: "2021-06-05T16:38:26.536784+08:00"
+    created: "2021-06-05T16:47:20.446327+08:00"
     description: A Cert Manager Webhook for DNSPod
-    digest: baa854bcec1af73f4eb85779eadb2ff62d68d898fa8eaa9733bf97a8a2c0a099
+    digest: 164cc1b6b999061d3db24b7cf3d38d1912400f47a3763f01ca8d29ed6442a2da
     name: cert-manager-webhook-dnspod
     urls:
     - https://iineva.github.io/helm-chart/package/cert-manager-webhook-dnspod-0.3.1.tgz
     version: 0.3.1
   - apiVersion: v1
     appVersion: 0.1.2
-    created: "2021-06-05T16:38:26.536186+08:00"
+    created: "2021-06-05T16:47:20.445742+08:00"
     description: DNSPod Webhook for Cert Manager
     digest: d7b7ff69a3de87ee561b8edab5af7850fc79f851b484aaf6a54ad6a61f0f4bee
     name: cert-manager-webhook-dnspod
@@ -86,9 +86,9 @@ entries:
   gitlab:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.537527+08:00"
+    created: "2021-06-05T16:47:20.447449+08:00"
     description: Gitlab Helm chart for Kubernetes
-    digest: cb26a29e759fed623bb91fab5d0b48688251b352483dc51c252ff95594112d4f
+    digest: e68923412567f6bb94f1220169d45f54942f9594cf82faa97513e851d91e12ec
     name: gitlab
     type: application
     urls:
@@ -97,9 +97,9 @@ entries:
   gitlab-runner:
   - apiVersion: v2
     appVersion: 12.5.0
-    created: "2021-06-05T16:38:26.53864+08:00"
+    created: "2021-06-05T16:47:20.450317+08:00"
     description: GitLab Runner
-    digest: 9424743334466be8209d5f9456c2aff157901e42a5cb55be57450d51329c41ce
+    digest: 5bf39541d4e6feaa54d25c233fdfec50b52696872b29642a2106f292190ca9cd
     icon: https://gitlab.com/uploads/-/system/project/avatar/250833/runner_logo.png
     keywords:
     - git
@@ -118,9 +118,9 @@ entries:
   helm-web:
   - apiVersion: v2
     appVersion: 0.1.0
-    created: "2021-06-05T16:38:26.53994+08:00"
+    created: "2021-06-05T16:47:20.450847+08:00"
     description: helm-web chart for Kubernetes
-    digest: 3ecd28ecb22dca6c8b7b2a79d70a2a7b38c6f3dc2b1faf170cef3fe0f9a3be03
+    digest: 6c02c190ebeed1149d355901933f56d72ff0b022325b6eb3110c2e3cbc67c39d
     name: helm-web
     type: application
     urls:
@@ -129,9 +129,9 @@ entries:
   ingress-cert-reflector:
   - apiVersion: v2
     appVersion: 1.16.3
-    created: "2021-06-05T16:38:26.54068+08:00"
+    created: "2021-06-05T16:47:20.451284+08:00"
     description: A Helm chart for Kubernetes
-    digest: 9afd7c7fb8d2493b3712f92c097b5b87927d1f48d061d213f494d547c89d2c17
+    digest: ae47e7c06fff5dac7a43ca746797a53247c33c41ea079e04350112ce462405ed
     name: ingress-cert-reflector
     type: application
     urls:
@@ -140,9 +140,9 @@ entries:
   ipa-server:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-06-05T16:38:26.541525+08:00"
+    created: "2021-06-05T16:47:20.451843+08:00"
     description: A Helm chart for Kubernetes
-    digest: bad4960a681922200c098bd48a324f7d68f56f9da89c22c38c0976e293436374
+    digest: b48770177d0029ad6b77e9ed4666412056b3dfdddfdc3a4bce078c3d22638cc3
     name: ipa-server
     type: application
     urls:
@@ -151,9 +151,9 @@ entries:
   nfs-client-provisioner:
   - apiVersion: v1
     appVersion: 3.1.0
-    created: "2021-06-05T16:38:26.542315+08:00"
+    created: "2021-06-05T16:47:20.452489+08:00"
     description: nfs-client is an automatic provisioner that used your *already configured* NFS server, automatically creating Persistent Volumes.
-    digest: 004727c9083b1fe32d5cd4f6ccdaa2a48d690b7704493159d9d8a29a519faa48
+    digest: d723015efaba922ac549f83f233001c02a1801d4ebc8a4061118ba9ef52f88c8
     home: https://github.com/kubernetes-incubator/external-storage/tree/master/nfs-client
     keywords:
     - nfs
@@ -170,9 +170,9 @@ entries:
   nps-server:
   - apiVersion: v2
     appVersion: 0.23.2
-    created: "2021-06-05T16:38:26.543005+08:00"
+    created: "2021-06-05T16:47:20.45306+08:00"
     description: A Helm chart for Kubernetes
-    digest: 5d664cd4c43db82e2372f59cb8104e8b8522e56a8bb90825bda9e4ae7cf76dba
+    digest: d24c538f5565abff8961053fffd6edc3543bf4aeedc24fb990ec7eb2028338e9
     name: nps-server
     type: application
     urls:
@@ -181,9 +181,9 @@ entries:
   pvc:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.543337+08:00"
+    created: "2021-06-05T16:47:20.453375+08:00"
     description: Create PVC Helm chart for Kubernetes
-    digest: 9259893508c5038bd9fabfd30ebdbbbdd678191a727c8ae67d9349acad48bb32
+    digest: f0928307f020545f1d577a7a07a8fb4c489a7da56b75074d0214e5edfe8184d9
     name: pvc
     type: application
     urls:
@@ -192,9 +192,9 @@ entries:
   raw:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-06-05T16:38:26.543829+08:00"
+    created: "2021-06-05T16:47:20.453882+08:00"
     description: A Helm chart for Kubernetes
-    digest: 78fd67454160236734d1ee772c9bcc8e53f70913fec13ae2f24fe8060371d2f4
+    digest: 4a3f0d529bff46a1b9ae5e15fe67b1bad5510d5f0c148d73bb01b7307ad36c18
     name: raw
     type: application
     urls:
@@ -203,9 +203,9 @@ entries:
   redis:
   - apiVersion: v2
     appVersion: 5.0.5-alpine3.10
-    created: "2021-06-05T16:38:26.544245+08:00"
+    created: "2021-06-05T16:47:20.454394+08:00"
     description: A Redis Helm chart for Kubernetes
-    digest: 4d9cb225810c25c8cae425dbc680766a179f173a9c43bef71b929d6c283c2e4b
+    digest: f3f33b2267a86bac5f475e70b205e02c6ff1f86cc185e8a9fde5a28e5c79994a
     name: redis
     type: application
     urls:
@@ -214,9 +214,9 @@ entries:
   registry-ui:
   - apiVersion: v2
     appVersion: 2.0.2
-    created: "2021-06-05T16:38:26.544716+08:00"
+    created: "2021-06-05T16:47:20.454905+08:00"
     description: registry-ui Helm chart for Kubernetes
-    digest: 4d8b6beeb0cec552f948ef85d9cce82862e93c6fabb51a082657df454410ea68
+    digest: 47de0fdebe7d23f6b8e0d9f2f640a1aaa3eff514471c605c9b6dcb2f100875e5
     name: registry-ui
     type: application
     urls:
@@ -225,9 +225,9 @@ entries:
   ss:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.545045+08:00"
+    created: "2021-06-05T16:47:20.455337+08:00"
     description: A Helm chart for Kubernetes
-    digest: 5099b3df9c4ab3cedb2ae2f34578f3f59abcd21b23e785ba1aeebb7a67329119
+    digest: f0e5c00280d3ac6fa94043fa8c003f5b15bc9944538a2f7ccd9b8c66228ec18a
     name: ss
     type: application
     urls:
@@ -236,9 +236,9 @@ entries:
   static-file:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-06-05T16:38:26.545615+08:00"
+    created: "2021-06-05T16:47:20.456232+08:00"
     description: A Helm chart for Kubernetes
-    digest: 691c4bf12fc75b9645a11e016ecb0f343a29ca61d0ab9102daf0532e7165760e
+    digest: 66362d1d3aad93f837b612a17473487410dc2c6d5308250d79b9dad75a46ce7b
     name: static-file
     type: application
     urls:
@@ -247,9 +247,9 @@ entries:
   traefik:
   - apiVersion: v2
     appVersion: 1.7.16
-    created: "2021-06-05T16:38:26.546104+08:00"
+    created: "2021-06-05T16:47:20.457005+08:00"
     description: A Helm chart for Kubernetes
-    digest: 7c6e60fdfb916e515f195572a5a70fbcc7fa9211d072ef300c08bbafed3d4667
+    digest: d2a0286b60b47238ab339ddb9936b7ff8bd5fd68c92608e54d58d8676c021ff8
     name: traefik
     type: application
     urls:
@@ -258,9 +258,9 @@ entries:
   v2ray:
   - apiVersion: v2
     appVersion: 4.21.3
-    created: "2021-06-05T16:38:26.547522+08:00"
+    created: "2021-06-05T16:47:20.45856+08:00"
     description: A Helm chart for Kubernetes
-    digest: 9ac8836c7bc55f72b8b11305656009a24217aaee7e42924dcf9141c95556357c
+    digest: f75eebfefb10bce7fd52ea451338d422acebe20dee4c623c580d607479aa0697
     name: v2ray
     type: application
     urls:
@@ -268,7 +268,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 4.21.3
-    created: "2021-06-05T16:38:26.546986+08:00"
+    created: "2021-06-05T16:47:20.457948+08:00"
     description: A Helm chart for Kubernetes
     digest: 9eaa0aaffde9eae27b7814558c95730fec40a1ee96810cd35d71723ed5008a90
     name: v2ray
@@ -279,9 +279,9 @@ entries:
   verdaccio:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.548158+08:00"
+    created: "2021-06-05T16:47:20.459242+08:00"
     description: A Helm chart for Kubernetes
-    digest: c0d5979d7358fd48581e1c277baa4a5f46e96ea6e5c41cb48fac67e54bb115f2
+    digest: c98f088914c8cc3bf6fbfe126026ff88c02f5986dc6cbcd170dad291319fa2e2
     name: verdaccio
     type: application
     urls:
@@ -290,12 +290,12 @@ entries:
   weave:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2021-06-05T16:38:26.548442+08:00"
+    created: "2021-06-05T16:47:20.459581+08:00"
     description: A Helm chart for Kubernetes
-    digest: a1b0baa23de6865706e0ffae19a09962980d8a508d3b85e6152466a0fa1b09fd
+    digest: 0135797b8bf1028d294af8f69240e2311fca12dd07e8045f75b35877a3fcd43f
     name: weave
     type: application
     urls:
     - https://iineva.github.io/helm-chart/package/weave-1.0.0.tgz
     version: 1.0.0
-generated: "2021-06-05T16:38:26.529318+08:00"
+generated: "2021-06-05T16:47:20.43923+08:00"
