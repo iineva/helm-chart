@@ -27,26 +27,53 @@ spec:
       serviceAccountName: {{ include "web.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        {{- range .Values.containers }}
+        - name: {{ .name }}
+          {{- with .securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+          image: {{ .image }}
+          imagePullPolicy: {{ "IfNotPresent" | default .imagePullPolicy }}
+          {{- with .ports }}
           ports:
-            - name: http
-              containerPort: {{ .Values.containerPort }}
-              protocol: TCP
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+          {{- with .livenessProbe }}
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+
+          {{- with .readinessProbe }}
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+
+          {{- with .resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+
+          {{- with .command }}
+          command:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+
+          {{- with .env }}
+          env:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+
+          {{- with .volumeMounts }}
+          volumeMounts:
+            {{- . | toYaml | nindent 12 }}
+          {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
