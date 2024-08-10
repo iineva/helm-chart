@@ -1,0 +1,248 @@
+questions:
+  # 业务配置 - 经常修改, 直接置顶
+  - variable: configFiles
+    type: dictConfig
+    binding:
+      required: true
+    label: 配置文件
+    group: "配置文件选项"
+
+  # 镜像选项
+  - variable: deploy.image.name
+    type: varUnitName
+    binding:
+      required: true
+    label: 服务镜像名称
+    group: "镜像选项"
+  - variable: deploy.image.tag
+    type: items
+    binding:
+      required: true
+      default: "unknown"
+    description: "镜像 Tag"
+    label: 可选择镜像版本
+    group: "镜像选项"
+
+  # 资源配置
+  - variable: replicas
+    group: "资源配置选项"
+    description: "Pod 副本数"
+    type: int
+    binding:
+      required: true
+      default: 1
+      min: 1
+      max: 50 # 可能性不大
+  - variable: resources
+    group: "资源配置选项"
+    type: yaml
+    binding:
+      required: false
+    label: "deployment 资源限制"
+
+  # 部署选项
+  - variable: nameOverride
+    type: varUnitName
+    binding:
+      required: true
+    label: nameOverride
+    group: "部署选项"
+  - variable: fullnameOverride
+    type: varUnitName
+    binding:
+      required: true
+    label: fullnameOverride
+    group: "部署选项"
+  - variable: labels
+    type: dict
+    binding:
+      required: false
+      default: {}
+    label: 服务标签 labels
+    group: "部署选项"
+
+  # 部署选项
+  - variable: deploy.command
+    type: list
+    binding:
+      required: true
+    label: 命令参数
+    group: "部署选项"
+  - variable: deploy.env
+    type: yaml
+    binding:
+      required: true
+      default:
+        TTFLAKE_AREA:
+          value: Singapore
+    label: 容器环境变量
+    group: "部署选项"
+  - variable: deploy.ports
+    type: yaml
+    binding:
+      required: true
+      default:
+        - name: grpc
+          containerPort: 8080
+        - name: admin
+          containerPort: 15080
+    description: "默认 gRPC 服务绑定 8080, 指标接口 15080"
+    label: container 端口
+    group: "部署选项"
+  - variable: deploy.annotations
+    type: dict
+    binding:
+      required: false
+      default: {}
+    description: "常用于配置 sidecar 参数"
+    label: "deployment 注解"
+    group: "部署选项"
+  - variable: grpcServiceMonitor.enabled
+    type: boolean
+    binding:
+      required: false
+      default: true
+    label: "是否启用 gRPC 指标采集"
+    group: "部署选项"
+  - variable: serviceType
+    type: string
+    binding:
+      required: false
+      default: "grpc-server"
+    description: "用于指标采集时加入服务类型标签"
+    label: "服务类型"
+    group: "部署选项"
+
+  # 集群服务配置
+  - variable: service
+    type: yaml
+    binding:
+      required: false
+    description: "集群服务配置"
+    label: 集群服务配置
+    group: "集群服务配置"
+
+  # 额外服务选项
+  - variable: extraServices
+    type: yaml
+    binding:
+      required: false
+    description: "用于服务集合创建 service"
+    label: "额外 service 资源"
+    group: "额外服务选项"
+  - variable: extraConfigmapMounts
+    type: yaml
+    binding:
+      required: false
+    label: "额外 configmap 资源挂载"
+    group: "额外服务选项"
+
+  # 服务存活可读探针
+  - variable: readinessProbe
+    type: yaml
+    binding:
+      required: false
+    description: "可读探针"
+    label: 可读探针
+    group: "服务探活"
+  - variable: livenessProbe
+    type: yaml
+    binding:
+      required: false
+    description: "存活探针"
+    label: 存活探针
+    group: "服务探活"
+
+  # 网关路由, 默认情况下只有 app / web 和 debug, 其中 debug 不应该在生产环境启用
+  - variable: httpVirtualServices
+    type: yaml
+    binding:
+      required: false
+    description: "网关路由配置"
+    label: 网关路由配置
+    group: "Istio 配置"
+
+  # 持久化存储选项
+  - variable: extraSecretMounts
+    type: yaml
+    binding:
+      required: false
+    label: "secret"
+    group: "持久化存储选项"
+  - variable: persistentVolumeClaims
+    type: yaml
+    binding:
+      required: false
+    label: "pvc"
+    group: "持久化存储选项"
+
+  # gRPC-transcoder 选项
+  # 说明文档: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/grpc_json_transcoder_filter
+  - variable: envoyFilter.grpcTranscoder.enabled
+    type: boolean
+    binding:
+      required: false
+    label: "是否启用 gRPC-Transcoder 功能"
+    group: "gRPC-Transcoder 功能"
+    show_subquestion_if: true
+    subquestions:
+      - variable: initContainer.protoflect.command
+        type: list
+        binding:
+          required: false
+        label: "init container 命令"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.port
+        type: int
+        binding:
+          required: false
+          min: 80
+          max: 65535
+          default: 8080
+        description: "用于设置 istio-proxy 转发转换后的 HTTP 请求至指定 container 端口"
+        label: "container 服务端口"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.protoDescriptor
+        type: string
+        binding:
+          required: false
+          default: "/runtime/x.protoset"
+        label: "protocol 描述符"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.services
+        type: list
+        binding:
+          required: false
+        label: "进行 gRPC 请求转换的服务"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.convertGrpcStatus
+        type: boolean
+        binding:
+          required: false
+          default: true
+        description: "新服务必须启用"
+        label: "是否转换 gRPC Status 为 JSON 响应而不是 Header 字段"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.alwaysPrintEnumsAsInts
+        type: boolean
+        binding:
+          required: false
+          default: true
+        description: "新服务必须启用"
+        label: "是否将枚举类型转换为 INT 整数型而不是字符串"
+        group: "gRPC-transcoder 选项"
+      - variable: envoyFilter.grpcTranscoder.addWhitespace
+        type: boolean
+        binding:
+          required: false
+        label: "是否给响应报文添加空格用于美化"
+        group: "gRPC-transcoder 选项"
+
+  # Helm Post Upgrade Hook 配置
+  - variable: postUpgradeHook
+    type: yaml
+    binding:
+      required: false
+    description: "请勿随意修改, 默认不启用"
+    label: "Hook 配置"
+    group: "Helm Post Upgrade Hook 配置"

@@ -1,0 +1,28 @@
+{{- $fullName := include "generalServer.fullname" . -}}
+{{- if .Values.envoyFilter  }}
+{{- if .Values.envoyFilter.grpcWeb}}
+{{- if .Values.envoyFilter.grpcWeb.enabled}}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: grpc-web-filter-{{ $fullName }}
+spec:
+  # 选择需要设置此EnvoyFilter的工作负载labels，
+  # 本例中对应之前定义的Deployment.backend
+  workloadSelector:
+    labels:
+      app: {{ $fullName }}
+  filters:
+    # 插入envoy.grpc_web过滤器，
+    # 用于转换浏览器端gRPC-Web请求到后端的gRPC服务
+    - listenerMatch:
+        listenerType: SIDECAR_INBOUND
+        listenerProtocol: HTTP
+      insertPosition:
+        index: FIRST
+      filterType: HTTP
+      filterName: "envoy.grpc_web"
+      filterConfig: {}
+{{- end}}
+{{- end}}
+{{- end}}

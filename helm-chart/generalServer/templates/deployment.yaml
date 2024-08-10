@@ -1,0 +1,180 @@
+apiVersion: apps/v1
+{{- if not .Values.deploy.stateful }}
+kind: Deployment
+{{- else }}
+kind: StatefulSet
+{{- end }}
+metadata:
+  name: {{ include "generalServer.fullname" . }}
+  labels:
+    app: {{ include "generalServer.name" . }}
+    chart: {{ include "generalServer.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+spec:
+{{- if not .Values.autoscale.enabled }}
+{{- if .Values.replicas }}
+  replicas: {{ .Values.replicas }}
+{{- else }}
+  replicas: 1
+{{- end }}
+{{- end }}
+  selector:
+    matchLabels:
+      app: {{ include "generalServer.name" . }}
+      release: {{ .Release.Name }}
+{{- if .Values.deploy.stateful }}
+  {{- if .Values.deploy.serviceName }}
+  serviceName: {{ .Values.deploy.serviceName  }}
+  {{- else }}
+  serviceName: {{ include "generalServer.fullname" . }}
+  {{- end }}
+{{- end }}
+  template:
+    metadata:
+      annotations:
+        checksum/configfiles: {{ include (print $.Template.BasePath "/configmap.yaml") $ | sha256sum }}
+        checksum/imagepullsecret: {{ include (print $.Template.BasePath "/docker-secret.yaml") $ | sha256sum }}
+        {{- with .Values.deploy.annotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        role: service
+        app: {{ include "generalServer.name" . }}
+        release: {{ .Release.Name }}
+        {{- range $key, $val := .Values.labels }}
+        {{ $key }}: {{ $val }}
+        {{- end }}
+    spec:
+      securityContext:
+        runAsUser: 500
+        fsGroup: 1000
+      imagePullSecrets:
+        - name: {{ include "generalServer.fullname" . | quote }}
+    {{- with .Values.hostAliases }}
+      hostAliases:
+      {{- toYaml . | nindent 8 }}
+    {{- end }}
+      {{- if .Values.initContainer }}
+      initContainers:
+        {{- if .Values.initContainer.protoflect }}
+        - name: protoflect
+          image: "{{ .Values.global.hub }}/{{ .Values.deploy.image.name }}:{{ .Values.deploy.image.tag }}"
+          command: {{- toYaml .Values.initContainer.protoflect.command | nindent 12 }}
+          volumeMounts:
+            - name: pod-ipc
+              mountPath: /runtime
+            {{- range $name, $val := .Values.extraConfigmapMounts }}
+            - name: {{ $name }}
+              mountPath: {{ $val.mountPath }}
+              subPath: {{ $val.subPath }}
+              readOnly: {{ $val.readOnly }}
+            {{- end }}
+        {{- end}}
+      {{- end}}
+      containers:
+        - name: service
+          image: "{{ .Values.global.hub }}/{{ .Values.deploy.image.name }}:{{ .Values.deploy.image.tag }}"
+          imagePullPolicy: {{ .Values.deploy.image.pullPolicy }}
+          command: {{- toYaml .Values.deploy.command | nindent 12 }}
+        {{- with .Values.deploy.ports }}
+          ports:
+            {{- toYaml . | nindent 12 }}
+        {{- end }}
+        {{- if .Values.deploy.env }}
+          env:
+            {{- range $envKey,$envValue := .Values.deploy.env }}
+            - name: {{ $envKey }}
+              {{- with $envValue }}
+              {{- toYaml .|nindent 14 }}
+              {{- end }}
+            {{- end }}
+            - name: GOMAXPROCS
+              valueFrom:
+                resourceFieldRef:
+                  containerName: service
+                  divisor: "0"
+                  resource: limits.cpu
+        {{- end }}
+          volumeMounts:
+            - name: pod-ipc
+              mountPath: /runtime
+            - mountPath: /etc/localtime
+              name: host-time
+              readOnly: true
+        {{- $length := len .Values.configFiles }} {{- if gt $length  0 }}
+            - name: config
+              mountPath: /home/godman/etc/
+        {{- end }}
+        {{- range $name, $val := .Values.extraConfigmapMounts }}
+            - name: {{ $name }}
+              mountPath: {{ $val.mountPath }}
+              subPath: {{ $val.subPath }}
+              readOnly: {{ $val.readOnly }}
+        {{- end }}
+        {{- range $name, $val := .Values.extraSecretMounts }}
+            - name: {{ $name }}
+              mountPath: {{ $val.mountPath }}
+              readOnly: {{ $val.readOnly }}
+        {{- end }}
+        {{- range $name, $val := .Values.persistentVolumeClaims }}
+            - name: {{ $name }}
+              mountPath: {{ $val.mountPath }}
+            {{- with $val.subPath }}
+              subPath: {{ $val.subPath }}
+            {{- end }}
+            {{- with $val.readOnly }}
+              readOnly: {{ $val.readOnly }}
+            {{- end}}
+        {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+      {{- end }}
+          livenessProbe:
+            {{- toYaml .Values.livenessProbe | nindent 12 }}
+    {{- with .Values.deploy.nodeSelector }}
+      nodeSelector:
+    {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      volumes:
+        - hostPath:
+            path: /etc/localtime
+            type: ""
+          name: host-time
+        - name: pod-ipc
+          emptyDir: {}
+    {{- range $name, $val := .Values.extraConfigmapMounts }}
+        - name: {{ $name }}
+          configMap: 
+            name: {{ $val.configMap }}
+    {{- end }}
+    {{- range $name, $val := .Values.extraSecretMounts }}
+        - name: {{ $name }}
+          secret:
+            secretName: {{ $val.secretName }}
+            defaultMode: {{ $val.defaultMode }}
+    {{- end }}
+    {{- range $name, $val := .Values.persistentVolumeClaims }}
+        - name: {{ $name }}
+          persistentVolumeClaim:
+            claimName: {{ $val.claimName }}
+    {{- end }}
+    {{- $length := len .Values.configFiles }} {{- if gt $length  0 }}
+        - name: config
+          configMap:
+            name: {{ include "generalServer.fullname" . }}
+    {{- end }}

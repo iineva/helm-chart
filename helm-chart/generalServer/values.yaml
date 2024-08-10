@@ -1,0 +1,161 @@
+# Default values for server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+global:
+  hub: registry.cn-hongkong.aliyuncs.com/azeroth
+  #imagePullSecrets:
+  #  - name: hk-aliyuncs
+
+labels: {}
+
+grpcServiceMonitor:
+  enabled: true
+
+serviceType: grpc-server
+
+deploy:
+  annotations:
+    sidecar.istio.io/userVolumeMount: '{"pod-ipc":{"mountPath":"/runtime"}}'
+  stateful: false
+  image:
+    name: example
+    # latest -> unkonwn prevent wrong image deploy if tag not fill out.
+    tag: unknown
+    pullPolicy: Always
+  command: []
+  env: {}
+  ports:
+    - name: grpc
+      containerPort: 8080
+    - name: admin
+      containerPort: 15080
+autoscale:
+  enabled: false
+  # min: 1
+  # max: 5
+# specify replicas when autoscale.enabled: false
+replicas: 1
+
+cpu:
+  targetAverageUtilization: 80
+
+resources:
+  {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: "1"
+  #   memory: 1Gi
+  # requests:
+  #   cpu: 10m
+  #   memory: 64Mi
+
+service:
+  enabled: true
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+  name: grpc
+  adminPort: 15080
+
+headlessService:
+  enabled: false
+  ## use generalserver.name by default
+  #name: headless-service-name
+  ## At least one port must be specified
+  #ports:
+  #- name: grpc
+  #  protocol: TCP
+  #  port: 80
+  #  targetPort: 8080
+
+canary:
+  # if true, set canary http route
+  enabled: false
+  # if true, will not create any virtualService for primary svc
+  # if false, patch http routes `example-svc -> example-primary-svc` and `(when with headers x-api-canary) example-svc->example-svc`
+  disableRoute: false
+  # 指定客户端版本号的才会路由到金丝雀版本
+  clientVersion: 0.0.0
+
+httpVirtualServices: {}
+readinessProbe: {}
+livenessProbe: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configFiles: {}
+extraSecretMounts: {}
+extraConfigmapMounts: {}
+
+# initContainer:
+#   protoflect:
+#     command:
+#       - "/home/godman/sbin/service"
+#       - "protoflect"
+#       - "-o"
+#       - "/runtime/x.protoset"
+
+# envoyFilter:
+#   grpcWeb:
+#     enabled: false
+#   grpcTranscoder:
+#     port: 8080
+#     protoDescriptor: /runtime/x.protoset
+#     services:
+#       - "tico.legacy.api.package.service"
+#     # grpc status header -> JSON Body, v1 is false, but v2 is true
+#     convertGrpcStatus: true
+#     # beautify respsone body
+#     addWhitespace: false
+#     alwaysPrintEnumsAsInts: true
+
+externalServices:
+  # Use externalServices to specify services running outside Kubernetes cluster such as databases
+  # or third-party API services. If you do want to specify external services, set `enabled` to true,
+  # uncomment the following lines and adjust them as necessary.
+  # By default, for each external service, we use `{Release.Name}-{name}` as the name of generated
+  # Endpoints/Service, you can override it by specifying a `fullName` to it.
+  enabled: false
+
+  # mysql:
+  #   fullName: internal-mysql
+  #   enabled: true
+  #   ip: 192.168.9.227
+  #   port: 3306
+  #   protocol: TCP
+  # mongo:
+  #   enabled: true
+  #   ip: 192.168.9.227
+  #   port: 27017
+  #   protocol: TCP
+  # redis:
+  #   enabled: false
+  #   ip: 192.168.9.227
+  #   port: 6379
+  #   targetPort: 9720
+
+postUpgradeHook:
+  webhook:
+    enabled: false
+    image: "centos:7"
+    command: ["echo"]
+    args: ["$(HELM_RELEASE_NAME)"]
+    env: {}
+    extraConfigmapMounts: {}
+
+# image pull 认证
+imageCredentials:
+  registry: quay.io
+  username: someone
+  password: sillyness

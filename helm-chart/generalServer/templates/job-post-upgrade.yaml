@@ -1,0 +1,65 @@
+{{- if .Values.postUpgradeHook.webhook.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-webhook-{{ .Release.Revision }}"
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    "helm.sh/hook": post-upgrade
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-webhook-{{ .Release.Revision }}"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+        sidecar.istio.io/inject: "false"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: webhook
+          image: {{ .Values.postUpgradeHook.webhook.image }}
+          command: {{- toYaml .Values.postUpgradeHook.webhook.command | nindent 12 }}
+          args: {{- toYaml .Values.postUpgradeHook.webhook.args | nindent 12 }}
+          volumeMounts:
+            {{- range $name, $val := .Values.postUpgradeHook.webhook.extraConfigmapMounts }}
+            - name: {{ $name }}
+              mountPath: {{ $val.mountPath }}
+              subPath: {{ $val.subPath }}
+              readOnly: {{ $val.readOnly }}
+            {{- end }}
+          env:
+            {{- range $envKey,$envValue := .Values.postUpgradeHook.webhook.env }}
+            - name: {{ $envKey }}
+              {{- with $envValue }}
+              {{- toYaml .|nindent 14 }}
+              {{- end }}
+            {{- end }}
+            - name: HELM_RELEASE_NAME
+              value: {{ .Release.Name | quote }}
+            - name: HELM_RELEASE_NAMESPACE
+              value: {{ .Release.Namespace | quote }}
+            - name: HELM_RELEASE_REVISION
+              value: {{ .Release.Revision | quote }}
+            - name: HELM_APP_VERSION
+              value: {{ .Chart.AppVersion | quote }}
+      volumes:
+        - hostPath:
+            path: /etc/localtime
+            type: ""
+          name: host-time
+        - name: pod-ipc
+          emptyDir: {}
+    {{- range $name, $val := .Values.postUpgradeHook.webhook.extraConfigmapMounts }}
+        - name: {{ $name }}
+          configMap: 
+            name: {{ $val.configMap }}
+    {{- end }}
+{{- end }}

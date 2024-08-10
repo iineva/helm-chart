@@ -1,0 +1,29 @@
+{{- if .Values.headlessService.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  {{- $defaultName := printf "%s-headless" (include "generalServer.fullname" .) }}
+  name: {{ .Values.headlessService.name | default $defaultName }}
+  labels:
+    app: {{ include "generalServer.name" . }}
+    chart: {{ include "generalServer.chart" . }}
+    release: {{ .Release.Name }}
+    servicetype: headless
+    heritage: {{ .Release.Service }}
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+spec:
+  clusterIP: None
+  type: ClusterIP
+  ports:
+    {{- range $port := .Values.headlessService.ports }}
+    - port: {{ $port.port }}
+      targetPort: {{ $port.targetPort | default $port.port }}
+      protocol: {{ $port.protocol | default "TCP" }}
+      name: {{ $port.name }}
+    {{- end }}
+  selector:
+    app: {{ include "generalServer.name" . }}
+    release: {{ .Release.Name }}
+{{- end -}}

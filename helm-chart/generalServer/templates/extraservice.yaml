@@ -1,0 +1,40 @@
+{{- range $k,$svc := .Values.extraServices }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  labels:
+    app: {{ include "generalServer.name" $ }}
+    chart: {{ include "generalServer.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+    extraService: {{ .name }}
+    {{- with .labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .type | default "ClusterIP" }}
+  ports:
+    {{- if .ports }}
+    {{- with .ports }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- else }}
+    - name: grpc
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+    - name: admin
+      port: 15080
+      protocol: TCP
+      targetPort: 15080
+    {{- end}}
+  selector:
+    app: {{ include "generalServer.name" $ }}
+    release: {{ $.Release.Name }}
+---
+{{- end -}}

@@ -1,0 +1,47 @@
+{{- if .Values.service.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "generalServer.fullname" . }}
+  labels:
+    app: {{ include "generalServer.name" . }}
+    chart: {{ include "generalServer.chart" . }}
+    release: {{ .Release.Name }}
+    {{- if .Values.grpcServiceMonitor.enabled }}
+    servicemonitor: grpc
+    {{- end }}
+    servicetype: {{ .Values.serviceType }}
+    heritage: {{ .Release.Service }}
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.adminPort | default 15080 }}
+      name: http-admin
+      protocol: TCP
+    {{- with .Values.service.ports }}
+    {{- toYaml . | nindent 6 }}
+    {{- end }}
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort | default .Values.service.port }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
+      name: {{ .Values.service.name }}
+      {{- with .Values.service.nodePort }}
+      nodePort: {{ . }}
+      {{- end }}
+    {{- range .Values.service.multiPorts }}
+    - port: {{ .port }}
+      targetPort: {{ .targetPort | default .port }}
+      protocol: {{ .protocol | default "TCP" }}
+      name: {{ .name }}
+    {{- end }}
+  selector:
+    app: {{ include "generalServer.name" . }}
+    release: {{ .Release.Name }}
+{{- end -}}
