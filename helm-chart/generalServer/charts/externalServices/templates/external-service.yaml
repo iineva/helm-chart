@@ -1,0 +1,33 @@
+{{- range $name, $spec := .Values -}}
+{{- if ne $name "enabled" -}}
+{{- if $spec.enabled -}}
+{{- with $spec.ip }}
+---
+apiVersion: v1
+kind: Endpoints
+{{ template "externalService.metadata" (dict "Release" $.Release "Values" $.Values "Chart" $.Chart "name" $name "spec" $spec)  }}
+subsets:
+  - addresses:
+    - ip: {{ . | quote }}
+    ports:
+    - port: {{ $spec.targetPort | default $spec.port }}
+      protocol: {{ $spec.protocol | default "TCP" }}
+      name: {{ $spec.name | default "tcp" }}
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+{{ template "externalService.metadata" (dict "Release" $.Release "Values" $.Values "Chart" $.Chart "name" $name "spec" $spec) }}
+spec:
+  {{- with $spec.externalName }}
+  type: ExternalName
+  externalName: {{ . | quote }}
+  {{- end }}
+  ports:
+  - port: {{ $spec.port }}
+    targetPort: {{ $spec.targetPort | default $spec.port }}
+    protocol: {{ $spec.protocol | default "TCP" }}
+    name: {{ $spec.name | default "tcp" }}
+{{- end}}
+{{- end}}
+{{- end}}

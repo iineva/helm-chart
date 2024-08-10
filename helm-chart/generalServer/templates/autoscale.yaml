@@ -1,0 +1,25 @@
+{{- if and .Values.autoscale.enabled .Values.autoscale.min .Values.autoscale.max }}
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ include "generalServer.fullname" . }}
+  labels:
+    chart: {{ include "generalServer.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    {{- range $key, $val := .Values.labels }}
+    {{ $key }}: {{ $val }}
+    {{- end }}
+spec:
+  maxReplicas: {{ .Values.autoscale.max }}
+  minReplicas: {{ .Values.autoscale.min }}
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "generalServer.fullname" . }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu 
+        targetAverageUtilization: {{ .Values.cpu.targetAverageUtilization }}
+{{- end }}

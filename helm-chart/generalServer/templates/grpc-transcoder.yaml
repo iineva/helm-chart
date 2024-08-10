@@ -1,0 +1,41 @@
+{{- $fullName := include "generalServer.fullname" . -}}
+{{- if .Values.envoyFilter  }}
+{{- if .Values.envoyFilter.grpcTranscoder}}
+{{- if .Values.envoyFilter.grpcTranscoder.enabled}}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: grpc-transcoder-v2-{{ $fullName }}
+spec:
+  workloadSelector:
+    labels:
+      app: {{ $fullName }}
+  configPatches:
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+              subFilter:
+                name: envoy.filters.http.router
+          portNumber: {{ .Values.envoyFilter.grpcTranscoder.port | default 8080}}
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.grpc_json_transcoder
+          typed_config:
+            '@type': >-
+              type.googleapis.com/envoy.extensions.filters.http.grpc_json_transcoder.v3.GrpcJsonTranscoder
+            convert_grpc_status: {{ .Values.envoyFilter.grpcTranscoder.convertGrpcStatus | default true }}
+            print_options:
+              add_whitespace: {{ .Values.envoyFilter.grpcTranscoder.addWhitespace | default false }}
+              always_print_enums_as_ints: {{ .Values.envoyFilter.grpcTranscoder.alwaysPrintEnumsAsInts | default false }}
+              always_print_primitive_fields: true
+              preserve_proto_field_names: false
+            proto_descriptor: {{ .Values.envoyFilter.grpcTranscoder.protoDescriptor | quote }}
+            services: {{- toYaml .Values.envoyFilter.grpcTranscoder.services | nindent 14 }}
+{{- end}}
+{{- end}}
+{{- end}}

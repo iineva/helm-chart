@@ -1,0 +1,48 @@
+{{- if (.Values.ingressGRPC).enabled -}}
+{{- $servicePort := .Values.ingressGRPC.servicePort -}}
+{{- $host := .Values.ingressGRPC.host -}}
+{{- $pathType := .Values.ingressGRPC.pathType -}}
+{{- $applicationNameTpl := include "application.name" . -}}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "application.name" . }}-grpc
+  namespace: {{ include "application.namespace" . }}
+  labels:
+  {{- include "application.labels" . | nindent 4 }}
+{{- if .Values.ingressGRPC.additionalLabels }}
+{{ toYaml .Values.ingressGRPC.additionalLabels | indent 4 }}
+{{- end }}
+{{- if .Values.ingressGRPC.annotations }}
+  annotations:
+{{ toYaml .Values.ingressGRPC.annotations | indent 4 }}
+{{- end }}
+spec:
+{{- if .Values.ingressGRPC.ingressClassName }}
+  ingressClassName: {{ .Values.ingressGRPC.ingressClassName }}
+{{- end}}
+  rules:
+    {{- range .Values.ingressGRPC.hosts }}
+    - host: {{ tpl (default $host (.host)) $ }}
+      http:
+        paths:
+        {{- if .paths }}
+        {{- range .paths }}
+        - path: {{ .path }}
+          pathType: {{ default $pathType (.pathType) | default "ImplementationSpecific" }}
+          backend:
+            service:
+              name: {{ default $applicationNameTpl (.serviceName) }}
+              port:
+                name: {{ default $servicePort (.servicePort) | default "grpc" }}
+        {{- end }}
+        {{- else }}
+        {{ fail "Specify paths for ingress host, check values.yaml" }}
+        {{- end }}
+    {{- end -}}
+  {{- if .Values.ingressGRPC.tls }}
+  tls:
+{{ include "application.tplvalues.render" (dict "value" .Values.ingressGRPC.tls "context" $) | indent 3 }}
+  {{- end -}}
+{{- end -}}

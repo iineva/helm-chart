@@ -1,0 +1,22 @@
+{{- if (.Values.configFiles).enabled }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "application.name" $ }}-configfiles
+  namespace: {{ template "application.namespace" $ }}
+  labels:
+  {{- include "application.labels" $ | nindent 4 }}
+{{- if .Values.configFiles.additionalLabels }}
+{{ toYaml .Values.configFiles.additionalLabels | indent 4 }}
+{{- end }}
+{{- if .Values.configFiles.annotations }}
+  annotations:
+{{ toYaml .Values.configFiles.annotations | indent 4 }}
+{{- end }}
+data:
+{{- range $name, $data := .Values.configFiles.files }}
+  {{ $name }}: |
+{{ include "application.tplvalues.render" ( dict "value" $data "context" $ ) | indent 4 }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,4 @@
+dependencies:
+  - name: externalServices
+    version: 1.0.0
+    condition: externalServices.enabled

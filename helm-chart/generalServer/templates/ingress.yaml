@@ -1,0 +1,43 @@
+# 兼容原 virtualservices.yaml 的配置
+{{- $fullName := include "generalServer.fullname" . -}}
+{{- $port := .Values.service.port -}}
+{{- range $name, $conf := .Values.httpVirtualServices }}
+{{- if get $conf "enabled" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    # nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    # 兼容 application/grpc-web+proto
+    # NOTE: 使用 nginx.ingress.kubernetes.io/configuration-snippet 需要 helm 安装时开启 --set controller.allowSnippetAnnotations=true
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      grpc_set_header Content-Type application/grpc;
+    # 兼容 grpc-web 跨域访问
+    nginx.ingress.kubernetes.io/cors-allow-headers: 'x-user-agent,x-grpc-web,content-type'
+    nginx.ingress.kubernetes.io/enable-cors: 'true'
+  name: {{ $fullName }}
+  labels:
+    app-name: {{ $name }}
+spec:
+  ingressClassName: {{ $conf.ingressClassName | default "nginx" | quote }}
+  rules:
+    {{- range $conf.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+        {{- range $conf.uriPrefixes }}
+        - path: {{ . }}
+          # ImplementationSpecific: Ingress controller 特定的路径匹配机制时使用,例如 Nginx Ingress controller 会将其作为前缀匹配路径
+          # https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: {{ $fullName }}
+              port:
+                number: {{ $conf.port | default $port }}
+        {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}
